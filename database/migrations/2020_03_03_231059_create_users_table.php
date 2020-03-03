@@ -22,9 +22,11 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('status');
-            $table->bigInteger('account_id')->nullable();
-//            $table->bigInteger('package_id')->nullable()->references('id')->on('packages')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('account_id')->nullable()->unsigned();
             $table->bigInteger('balance');
+
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');
+//            $table->bigInteger('package_id')->nullable()->references('id')->on('packages')->onDelete('cascade')->onUpdate('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
