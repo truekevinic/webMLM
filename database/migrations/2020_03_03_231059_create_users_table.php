@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('status');
             $table->bigInteger('account_id')->nullable()->unsigned();
-            $table->bigInteger('balance');
+//            $table->bigInteger('balance');
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');
 //            $table->bigInteger('package_id')->nullable()->references('id')->on('packages')->onDelete('cascade')->onUpdate('cascade');
