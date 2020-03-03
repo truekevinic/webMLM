@@ -1,0 +1,31 @@
+#google_translate_element {
+    width: fit-content;
+    margin-right: 40px;
+}
+
+.skiptranslate{
+    text-align: left !important;
+    width: fit-content;
+}
+
+#google_translate_element{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.goog-te-gadget{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.goog-te-combo {
+    padding: 10px;
+    position: absolute;
+    margin: 0 0 !important;
+    /* width: 10px !important; */
+    width: inherit;
+}
+
+.goog-te-banner {
+    display: none !important;
+}
