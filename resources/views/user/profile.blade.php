@@ -9,7 +9,7 @@
                     <table style="margin: 1.5em;"  >
                         <tr>
                             <td style="font-weight: bold">Wallet</td>
-                            <td style="font-weight: bolder;color: #636b6f;">$ {{$user->balance}}</td>
+                            <td style="font-weight: bolder;color: #636b6f;">$ {{$wallet}}</td>
                         </tr>
                         @if($user->name != "admin")
                             <tr>

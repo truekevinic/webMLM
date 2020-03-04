@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\User;
+use App\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -18,10 +19,12 @@ class UserController extends Controller
         if ($user->account_id!=null){
             $arr = $user->account_id;
             if ($arr!=8){
-                if ($user->balance >= $account[$arr]->upgrade_cost) {
-                    $user->balance -= $account[$arr]->upgrade_cost;
+                $referralWallet = Wallet::where('user_id', '=', $user->id)->where('wallet_type_id', '=', 3)->first();
+                if ($referralWallet->balance >= $account[$arr]->upgrade_cost) {
+                    $referralWallet->balance -= $account[$arr]->upgrade_cost;
                     $user->account_id += 1;
                     $user->save();
+                    $referralWallet->save();
 
                     $summary = new Summary();
                     $summary->user_id = $user->id;
@@ -31,8 +34,10 @@ class UserController extends Controller
 
                     $grand = UserController::grandSearch($user->parent_id, $user->account_id);
                     $grandUser = User::find($grand);
-                    $grandUser->balance += $account[$arr]->upgrade_cost;
+                    $grandWallet = Wallet::where('user_id', '=', $grand)->where('wallet_type_id', '=', 3)->first();
+                    $grandWallet->balance += $account[$arr]->upgrade_cost;
                     $grandUser->save();
+                    $grandWallet->save();
 
                     $summary = new Summary();
                     $summary->user_id = $grand;
@@ -58,7 +63,10 @@ class UserController extends Controller
     public function profile(){
         $user = Auth::user();
         $children = User::where('parent_id', '=', $user->id)->get();
-        return view('user.profile', compact(['user', $user], ['children', $children]));
+
+        $wallet = Wallet::where('user_id', '=', $user->id)->sum('balance');
+
+        return view('user.profile', compact(['user', $user], ['children', $children], ['wallet', $wallet]));
     }
 
     public function child(int $id){

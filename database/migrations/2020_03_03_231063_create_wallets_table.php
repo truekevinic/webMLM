@@ -15,12 +15,12 @@ class CreateWalletsTable extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('wallet_id')->unsigned();
+            $table->bigInteger('user_id');
+            $table->bigInteger('wallet_type_id')->unsigned();
             $table->bigInteger('balance');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('wallet_id')->references('id')->on('wallets')->onDelete('cascade')->onUpdate('cascade');
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('wallet_type_id')->references('id')->on('wallet_types')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

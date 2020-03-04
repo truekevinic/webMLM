@@ -15,8 +15,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'status', 'parent_id', 'account_id', 'package_id', 'balance'
+        'name', 'username', 'email', 'password', 'status', 'parent_id', 'account_id'
     ];
 
     /**
@@ -43,5 +44,9 @@ class User extends Authenticatable
 
     public function package(){
         return $this->hasOne(Package::class);
+    }
+
+    public function summary(){
+        return $this->hasMany(Summary::class);
     }
 }

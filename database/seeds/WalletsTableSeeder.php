@@ -14,17 +14,17 @@ class WalletsTableSeeder extends Seeder
     {
         DB::table('wallets')->insert([
             'user_id' => 1,
-            'wallet_id' => 1,
+            'wallet_type_id' => 1,
             'balance' => 0
         ]);
         DB::table('wallets')->insert([
             'user_id' => 1,
-            'wallet_id' => 2,
+            'wallet_type_id' => 2,
             'balance' => 0
         ]);
         DB::table('wallets')->insert([
             'user_id' => 1,
-            'wallet_id' => 3,
+            'wallet_type_id' => 3,
             'balance' => 0
         ]);
     }

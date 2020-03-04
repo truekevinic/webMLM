@@ -8,6 +8,7 @@ use App\Package;
 use App\User;
 use App\Summary;
 use App\Http\Controllers\Controller;
+use App\Wallet;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -57,7 +58,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['required', 'string', 'exists:users,name']
+            'referral' => ['required', 'string', 'exists:users,username']
 //            'package' => ['required', 'exists:packages,id']
         ]);
     }
@@ -75,9 +76,13 @@ class RegisterController extends Controller
 //        $package = Package::find($data['package'])->package_cost;
         $referral = User::where('username', '=', $data['referral'])->first();
 
+        $referralWallet = Wallet::where('user_id', '=', $referral->id)->where('wallet_type_id', '=', 3)->first();
+        $referralWallet->balance += 30;
+        $referralWallet->save();
+
 //        $balance = $referral->balance;
-        $referral->balance += 30;
-        $referral->save();
+//        $referral->balance += 30;
+//        $referral->save();
 
         $user_id = User::get()->last()->id + 1;
 
@@ -86,7 +91,7 @@ class RegisterController extends Controller
         $summary->status = "increment";
         $summary->text = "30 from user with id ".$user_id." because of a first registration";
         $summary->save();
-        
+
 //        $summary = new Summary();
 //        $summary->user_id = $user_id;
 //        $summary->status = "increment";
@@ -95,6 +100,11 @@ class RegisterController extends Controller
 
         $uController->checkStatus($referral->id);
 
+        //add net wallet
+        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0]);
+        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0]);
+        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0]);
+
         return User::create([
             'parent_id' => $referral->id,
             'username' => $data['username'],
@@ -102,9 +112,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'status' => 'member',
-            'account_id' => 1,
+            'account_id' => 1
 //            'package_id' => $data['package']
-            'balance' => 0
         ]);
     }
 
