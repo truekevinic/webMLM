@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWalletTypesTable extends Migration
+class CreateBonusTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateWalletTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('wallet_types', function (Blueprint $table) {
-            $table->bigIncrements('wallet_type_id');
-            $table->string('type_name');
-
+        Schema::create('bonus_types', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('bonus_type_name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateWalletTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallet_types');
+        Schema::dropIfExists('bonus_types');
     }
 }

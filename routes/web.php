@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+\Illuminate\Support\Facades\Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -19,3 +19,8 @@ Route::get('/profile', 'UserController@profile')->name('profile');
 Route::get('/child/{id}', 'UserController@child')->name('child');
 Route::get('/summary/{id}', 'UserController@summary')->name('summary');
 
+Route::get('/wallet/direct/{id}', 'UserController@direct')->name('direct');
+Route::get('/wallet/jackpot/{id}', 'UserController@jackpot')->name('jackpot');
+Route::get('/wallet/pairing/{id}', 'UserController@pairing')->name('pairing');
+Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView');
+Route::post('/wallet/withdraw', 'UserController@withdraw');

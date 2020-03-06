@@ -20,7 +20,7 @@ class CreateWalletsTable extends Migration
             $table->bigInteger('balance');
 
 //            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('wallet_type_id')->references('id')->on('wallet_types')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('wallet_type_id')->references('wallet_type_id')->on('wallet_types')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

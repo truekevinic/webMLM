@@ -32,7 +32,7 @@
                 @guest
                     <div class="login-register-option">
                         <li class="nav-item">
-                            <div id="google_translate_element"></div>  
+                            <div id="google_translate_element"></div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -47,7 +47,7 @@
                 @else
                     <div class="user-logged">
                         <li class="nav-item">
-                            <div id="google_translate_element"></div>  
+                            <div id="google_translate_element"></div>
                         </li>
                         <li class="nav-item dropdown ">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -60,6 +60,22 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('profile')}}">
                         {{ __('Profile') }}
+                    </a>
+
+                    <a class="dropdown-item" href="{{url('wallet/jackpot/'.Auth::user()->id)}}">
+                        {{ __('Jackpot Wallet') }}
+                    </a>
+
+                    <a class="dropdown-item" href="{{url('wallet/pairing/'.Auth::user()->id)}}">
+                        {{ __('Pairing Wallet') }}
+                    </a>
+
+                    <a class="dropdown-item" href="{{url('wallet/direct/'.Auth::user()->id)}}">
+                        {{ __('Direct Wallet') }}
+                    </a>
+
+                    <a class="dropdown-item" href="{{url('wallet/withdraw/'.Auth::user()->id)}}">
+                        {{ __('Withdraw') }}
                     </a>
 
                     <a class="dropdown-item" href="{{url('child/'.Auth::user()->id)}}">

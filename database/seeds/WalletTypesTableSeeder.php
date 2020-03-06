@@ -13,13 +13,13 @@ class WalletTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('wallet_types')->insert([
-            'type_name' => 'direct',
+            'type_name' => 'direct'
         ]);
         DB::table('wallet_types')->insert([
-            'type_name' => 'pairing',
+            'type_name' => 'pairing'
         ]);
         DB::table('wallet_types')->insert([
-            'type_name' => 'jackpot',
+            'type_name' => 'jackpot'
         ]);
     }
 }

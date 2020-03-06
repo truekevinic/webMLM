@@ -16,10 +16,12 @@ class CreateSummariesTable extends Migration
         Schema::create('summaries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('bonus_type_id')->unsigned();
             $table->string('status');
             $table->string('text');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('bonus_type_id')->references('id')->on('bonus_types')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

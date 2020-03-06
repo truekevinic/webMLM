@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'status', 'parent_id', 'account_id'
+        'name', 'username', 'email', 'password', 'status', 'parent_id', 'account_id', 'package_id'
     ];
 
     /**
@@ -38,15 +38,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function account(){
+    public function accounts(){
         return $this->hasOne(Account::class);
     }
 
-    public function package(){
+    public function packages(){
         return $this->hasOne(Package::class);
     }
 
-    public function summary(){
+    public function summarys(){
         return $this->hasMany(Summary::class);
     }
 }

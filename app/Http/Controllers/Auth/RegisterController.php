@@ -58,8 +58,8 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['required', 'string', 'exists:users,username']
-//            'package' => ['required', 'exists:packages,id']
+            'referral' => ['required', 'string', 'exists:users,username'],
+            'package' => ['required', 'exists:packages,id']
         ]);
     }
 
@@ -71,34 +71,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $referral = User::where('username', '=', $data['referral'])->first();
+        $user_id = User::get()->last()->id + 1;
         $uController = new UserController();
 
-//        $package = Package::find($data['package'])->package_cost;
-        $referral = User::where('username', '=', $data['referral'])->first();
-
-        $referralWallet = Wallet::where('user_id', '=', $referral->id)->where('wallet_type_id', '=', 3)->first();
-        $referralWallet->balance += 30;
-        $referralWallet->save();
-
-//        $balance = $referral->balance;
-//        $referral->balance += 30;
-//        $referral->save();
-
-        $user_id = User::get()->last()->id + 1;
-
-        $summary = new Summary();
-        $summary->user_id = $referral->id;
-        $summary->status = "increment";
-        $summary->text = "30 from user with id ".$user_id." because of a first registration";
-        $summary->save();
-
-//        $summary = new Summary();
-//        $summary->user_id = $user_id;
-//        $summary->status = "increment";
-//        $summary->text = ($package*1.2)." from first registration";
-//        $summary->save();
-
-        $uController->checkStatus($referral->id);
+        $this->jackpot($referral->id, $user_id, $uController);
+        $this->pairing($referral->id);
+        $this->direct($data['package'], $referral->id, $user_id);
 
         //add net wallet
         Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0]);
@@ -112,9 +91,46 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'status' => 'member',
-            'account_id' => 1
-//            'package_id' => $data['package']
+            'account_id' => 1,
+            'package_id' => $data['package']
         ]);
+    }
+
+    public function direct($package, $referral_id, $user_id){
+        $balance = Package::find($package)->package_cost;
+
+        $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 1)->first();
+        $referralWallet->balance += (int)((double)$balance*0.2);
+        $referralWallet->save();
+
+        Summary::create(['user_id'=>$referral_id, 'bonus_type_id'=>1, 'status'=>'increment','text'=>"$referralWallet->balance from user with id $user_id because of a first registration"]);
+    }
+
+    public function pairing($referral_id){
+        $bonus = 0;
+        $child = User::where('parent_id', '=', $referral_id)->count() + 1;
+        if ($child == 20) $bonus = 500;
+        else if ($child == 60) $bonus = 1000;
+        else if ($child == 160) $bonus = 2000;
+        else if ($child == 400) $bonus = 5000;
+        else if ($child == 1000) $bonus = 10000;
+        else if ($child == 2000000) $bonus = 20000;
+
+        $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 1)->first();
+        $referralWallet->balance += $bonus;
+        $referralWallet->save();
+
+        Summary::create(['user_id'=>$referral_id, 'bonus_type_id'=>2, 'status'=>'increment','text'=>"30 because you have got $child members!"]);
+    }
+
+    public function jackpot($referral_id, $user_id, $uController){
+        $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 3)->first();
+        $referralWallet->balance += 30;
+        $referralWallet->save();
+
+        Summary::create(['user_id'=>$referral_id, 'bonus_type_id'=>3, 'status'=>'increment','text'=>"30 from user with id $user_id because of a first registration"]);
+
+        $uController->checkStatusJackpot($referral_id);
     }
 
     public function showRegistrationForm()

@@ -77,24 +77,24 @@
                             </div>
                         </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="package" class="col-md-4 col-form-label text-md-right">{{ __('Package') }}</label>--}}
+                        <div class="form-group row">
+                            <label for="package" class="col-md-4 col-form-label text-md-right">{{ __('Package') }}</label>
 
-{{--                            <div class="col-md-6">--}}
-{{--                                <select name="package" id="package" class="form-control @error('password') is-invalid @enderror" required>--}}
-{{--                                    <option value="">Select Package</option>--}}
-{{--                                    @foreach($packages as $p)--}}
-{{--                                        <option value="{{$p->id}}">{{'Get Max $'.$p->max_balance.' for $'.$p->package_cost}}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
+                            <div class="col-md-6">
+                                <select name="package" id="package" class="form-control @error('password') is-invalid @enderror" required>
+                                    <option value="">Select Package</option>
+                                    @foreach($packages as $p)
+                                        <option value="{{$p->id}}">{{'Get Max $'.$p->max_balance.' for $'.$p->package_cost}}</option>
+                                    @endforeach
+                                </select>
 
-{{--                                @error('package')--}}
-{{--                                <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                                @error('package')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="referral" class="col-md-4 col-form-label text-md-right">{{ __('Referral User') }}</label>
