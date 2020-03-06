@@ -5,6 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form class="card" method="post" action="{{route('withdraw')}}">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$id}}">
                     <div class="card-header"><p>Your Wallet</p></div>
                     <div class="card-body">
                         @foreach($wallets as $w)

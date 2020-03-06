@@ -14,6 +14,7 @@
     <script src="{{ asset('js/jquery.js') }}" defer></script>
 
     <!-- Fonts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -22,85 +23,74 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-<div class="contain-all">
-    <div id="app">
-        <div class="header">
-            <div class="first-header">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Home
-                </a>
-                @guest
-                    <div class="login-register-option">
-                        <li class="nav-item">
-                            <div id="google_translate_element"></div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav active">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route ('home')}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                </li>
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+                    </li>
+                @endif
+            @else
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                        <a class="dropdown-item" href="{{url('summary/'.Auth::user()->id)}}">Summary</a>
+                        <a class="dropdown-item" href="{{url('child/'.Auth::user()->id)}}">Members</a>
                     </div>
-                @else
-                    <div class="user-logged">
-                        <li class="nav-item">
-                            <div id="google_translate_element"></div>
-                        </li>
-                        <li class="nav-item dropdown ">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-                        </li>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Wallet</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="{{url('wallet/direct/'.Auth::user()->id)}}">Direct</a>
+                        <a class="dropdown-item" href="{{url('wallet/pairing/'.Auth::user()->id)}}">Pairing</a>
+                        <a class="dropdown-item" href="{{url('wallet/jackpot/'.Auth::user()->id)}}">Jackpot</a>
+                        <a class="dropdown-item" href="{{url('wallet/withdraw/'.Auth::user()->id)}}">Withdraw</a>
                     </div>
+                </li>
+        </ul>
+        <div class="logout-btn nav-item float-right inline-box">
+            <div class="user-logged inline-box">
+                <li class="nav-item">
+                    <div id="google_translate_element"></div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+                </li>
             </div>
-            <div class="second-header">
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route('profile')}}">
-                        {{ __('Profile') }}
-                    </a>
-
-                    <a class="dropdown-item" href="{{url('wallet/jackpot/'.Auth::user()->id)}}">
-                        {{ __('Jackpot Wallet') }}
-                    </a>
-
-                    <a class="dropdown-item" href="{{url('wallet/pairing/'.Auth::user()->id)}}">
-                        {{ __('Pairing Wallet') }}
-                    </a>
-
-                    <a class="dropdown-item" href="{{url('wallet/direct/'.Auth::user()->id)}}">
-                        {{ __('Direct Wallet') }}
-                    </a>
-
-                    <a class="dropdown-item" href="{{url('wallet/withdraw/'.Auth::user()->id)}}">
-                        {{ __('Withdraw') }}
-                    </a>
-
-                    <a class="dropdown-item" href="{{url('child/'.Auth::user()->id)}}">
-                        {{ __('Members') }}
-                    </a>
-
-
-                    <a class="dropdown-item" href="{{url('summary/'.Auth::user()->id)}}">
-                        {{ __('Summary') }}
-                    </a>
-
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
-            @endguest
+            <a class="nav-link border border-primary rounded" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
         </div>
 
-        <main class="py-4">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        @endguest
+    </div>
+</nav>
+
+<div class="contain-all">
+    <div id="app">
+        <main class="py-0">
             @yield('content')
         </main>
     </div>

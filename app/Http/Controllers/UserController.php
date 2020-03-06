@@ -88,13 +88,34 @@ class UserController extends Controller
         return view('user.wallet.pairing', compact(['bonus', $bonus]));
     }
 
-    public function withdrawView($id){
+    public function withdrawView(int $id){
         $wallets = Wallet::where('user_id', '=', $id)->get();
 //        dd($wallets->walletTypes);
-        return view('user.wallet.withdraw', compact(['wallets', $wallets]));
+        return view('user.wallet.withdraw', compact(['wallets', $wallets], ['id', $id]));
     }
 
     public function withdraw(Request $request){
-        $balance = $request->total;
+        if ($request->wallet1 > 0) {
+            $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 1)->first();
+            $wallets->balance -= $request->wallet1;
+            $wallets->save();
+            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'status'=>'decrement','text'=>"$wallets->balance after withdraw"]);
+        }
+
+        if ($request->wallet2 > 0) {
+            $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 2)->first();
+            $wallets->balance -= $request->wallet2;
+            $wallets->save();
+            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>2, 'status'=>'decrement','text'=>"$wallets->balance after withdraw"]);
+        }
+
+        if ($request->wallet3 > 0) {
+            $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 3)->first();
+            $wallets->balance -= $request->wallet3;
+            $wallets->save();
+            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'status'=>'decrement','text'=>"$wallets->balance after withdraw"]);
+        }
+
+        return back();
     }
 }

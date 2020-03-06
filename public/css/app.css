@@ -1,110 +1,38 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Yu Gothic Light";
-}
-.login-register-option, .user-logged{
-    display: flex;
+.float-right{
+    right: 10px;
     position: absolute;
-    right: 0;
-    padding-right: 8%;
 }
-.first-header , .second-header{
-    display: flex;
-    padding: 1em;
-    border-bottom: 1px solid grey;
+.logout-btn a{
+    border: 2px solid grey !important;
+    color: grey !important;
 }
-.first-header li, .second-header li{
-    list-style: none;
+.logout-btn a:hover{
+    border: 2px solid azure !important;
+    color: azure !important;
+    transition: 1s;
 }
-.first-header a{
-    text-decoration: none;
-    color: #636b6f;
-    font-family: "Yu Gothic Light";
-    font-size: 1.3em;
-    font-weight: bolder;
-}
-.second-header a{
-    text-decoration: none;
-    color: #636b6f;
-    margin-right: 0.5em;
-}
-.second-header a:hover{
-    color: black;
-    font-weight: bolder;
-    transition: .5s;
-}
-.container{
-    padding: 5em;
-    padding-top: 2em;
-}
-.contain-all{
-    width: 90%;
-    margin: auto;
-}
-.container .row{
-    width: 80%;
-    margin: auto;
-    border-radius: 2em;
-    padding: 1em;
-}
-.form-group {
-    display: flex;
-    flex-direction: row;
-}
-.form-group input{
-    border: none;
-    outline: none;
-    background-color: transparent;
-    border-bottom: 1px solid black;
-}
-.form-group label{
-    margin-right: 0.5em;
-    width: 50% ;
-}
-.form-group .invalid-feedback{
-    width: 5vw;
-}
-.form-group select {
-    border: none;
-    background-color: #f8fafc;
-    padding: 1em;
-    border: 1px solid black;
-    border-radius: 1em;
-}
-.btn-primary{
-    font-weight: bolder;
-    border-radius: 10px;
-    border: none;
-    padding: 1em 2em 1em 2em;
-    border: 1px solid black;
+
+/* set all container */
+
+.jumbotron{
+    background-color: transparent !important;
     color: white;
-    background-color: black;
 }
-.btn-link {
-    text-decoration: none;
-    color: #636b6f;
+
+.backG{
+    background-image: url("../images/background-landing-page.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.card .card-body .row{
-    width: 60%;
-    margin: auto;
+.backGNoImage{
+    background: rgb(173,46,136);
+    background: linear-gradient(172deg, rgba(173,46,136,1) 14%, rgba(11,15,118,1) 96%, rgba(0,0,0,1) 100%);
 }
-.card a{
-    text-decoration: none;
-    font-weight: bolder;
-    color: grey;
+
+.inline-box{
+    display: flex;
 }
-.card .card-header p{
-    font-size: 2em;
-    text-align: center;
-}
-.card-body{
-    display: block;
-}
-.child-member{
-    border-bottom: 1px solid #636b6f;
-    padding: 1em 0 1em 0;
-}
-.profile-member-list li{
-    list-style-type: circle;
+
+.nav-item{
+    list-style-type: none;
 }
