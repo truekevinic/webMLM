@@ -22,5 +22,5 @@ Route::get('/summary/{id}', 'UserController@summary')->name('summary');
 Route::get('/wallet/direct/{id}', 'UserController@direct')->name('direct');
 Route::get('/wallet/jackpot/{id}', 'UserController@jackpot')->name('jackpot');
 Route::get('/wallet/pairing/{id}', 'UserController@pairing')->name('pairing');
-Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView');
-Route::post('/wallet/withdraw', 'UserController@withdraw');
+Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView')->name('withdraw_view');
+Route::post('/wallet/withdraw', 'UserController@withdraw')->name('withdraw');

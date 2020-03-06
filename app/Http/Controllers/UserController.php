@@ -95,6 +95,6 @@ class UserController extends Controller
     }
 
     public function withdraw(Request $request){
-
+        $balance = $request->total;
     }
 }
