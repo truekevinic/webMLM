@@ -69,9 +69,9 @@
                     <div id="google_translate_element"></div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
+                    <div class=" nav-link white" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </div>
                 </li>
             </div>
             <a class="nav-link border border-primary rounded" href="{{ route('logout') }}"

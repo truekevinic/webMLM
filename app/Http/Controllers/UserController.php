@@ -75,17 +75,20 @@ class UserController extends Controller
 
     public function direct($id){
         $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 1)->first();
-        return view('user.wallet.direct', compact(['bonus', $bonus]));
+        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 1)->get();
+        return view('user.wallet.direct', compact(['bonus', $bonus], ['summaries', $summaries]));
     }
 
     public function jackpot(int $id){
         $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
-        return view('user.wallet.jackpot', compact(['bonus', $bonus]));
+        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
+        return view('user.wallet.jackpot', compact(['bonus', $bonus], ['summaries', $summaries]));
     }
 
     public function pairing($id){
         $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 2)->first();
-        return view('user.wallet.pairing', compact(['bonus', $bonus]));
+        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 2)->get();
+        return view('user.wallet.pairing', compact(['bonus', $bonus], ['summaries', $summaries]));
     }
 
     public function withdrawView(int $id){
