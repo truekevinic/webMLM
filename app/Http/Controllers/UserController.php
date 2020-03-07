@@ -102,21 +102,21 @@ class UserController extends Controller
             $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 1)->first();
             $wallets->balance -= $request->wallet1;
             $wallets->save();
-            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'status'=>'decrement','text'=>"$wallets->balance after withdraw"]);
+            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'status'=>'decrement','text'=>"$request->wallet1 after withdraw"]);
         }
 
         if ($request->wallet2 > 0) {
             $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 2)->first();
             $wallets->balance -= $request->wallet2;
             $wallets->save();
-            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>2, 'status'=>'decrement','text'=>"$wallets->balance after withdraw"]);
+            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>2, 'status'=>'decrement','text'=>"$request->wallet2 after withdraw"]);
         }
 
         if ($request->wallet3 > 0) {
             $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 3)->first();
             $wallets->balance -= $request->wallet3;
             $wallets->save();
-            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'status'=>'decrement','text'=>"$wallets->balance after withdraw"]);
+            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>3, 'status'=>'decrement','text'=>"$request->wallet3 after withdraw"]);
         }
 
         return back();

@@ -80,9 +80,9 @@ class RegisterController extends Controller
         $this->direct($data['package'], $referral->id, $user_id);
 
         //add net wallet
-        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0]);
-        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0]);
-        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0]);
+        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0]); //direct
+        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0]); //pairing
+        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0]); //jackpot
 
         return User::create([
             'parent_id' => $referral->id,
@@ -118,7 +118,7 @@ class RegisterController extends Controller
         else if ($child == 2000000) $bonus = 20000;
 
         if ($bonus != 0) {
-            $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 1)->first();
+            $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 2)->first();
             $referralWallet->balance += $bonus;
             $referralWallet->save();
 
