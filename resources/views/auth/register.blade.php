@@ -84,7 +84,7 @@
                                 <select name="package" id="package" class="form-control @error('password') is-invalid @enderror" required>
                                     <option value="">Select Package</option>
                                     @foreach($packages as $p)
-                                        <option value="{{$p->id}}">{{'Get Max $'.$p->max_balance.' for $'.$p->package_cost}}</option>
+                                        <option value="{{$p->id}}">{{'Get Max Withdraw $'.($p->max_withdraw*(double)$p->max_balance).' for $'.$p->package_cost}}</option>
                                     @endforeach
                                 </select>
 

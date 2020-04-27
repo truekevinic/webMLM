@@ -21,6 +21,9 @@
                     <div id="total">Total 0</div>
                     <input type="submit" value="Withdraw">
                 </form>
+                @foreach($errors->all() as $e)
+                    <div>{{$e}}</div>
+                @endforeach
             </div>
         </div>
     </div>

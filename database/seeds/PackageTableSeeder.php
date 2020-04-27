@@ -12,12 +12,39 @@ class PackageTableSeeder extends Seeder
     public function run()
     {
         DB::table('packages')->insert([
-            'package_cost' => 50,
-            'max_balance' => 500
+            'package_cost' => 100,
+            'max_balance' => 100,
+            'max_withdraw' => 2
         ]);
         DB::table('packages')->insert([
-            'package_cost' => 100,
-            'max_balance' => 1000
+            'package_cost' => 300,
+            'max_balance' => 300,
+            'max_withdraw' => 2
+        ]);
+        DB::table('packages')->insert([
+            'package_cost' => 1000,
+            'max_balance' => 1000,
+            'max_withdraw' => 2
+        ]);
+        DB::table('packages')->insert([
+            'package_cost' => 3000,
+            'max_balance' => 3000,
+            'max_withdraw' => 2.5
+        ]);
+        DB::table('packages')->insert([
+            'package_cost' => 5000,
+            'max_balance' => 5000,
+            'max_withdraw' => 2.5
+        ]);
+        DB::table('packages')->insert([
+            'package_cost' => 10000,
+            'max_balance' => 10000,
+            'max_withdraw' => 3
+        ]);
+        DB::table('packages')->insert([
+            'package_cost' => 30000,
+            'max_balance' => 30000,
+            'max_withdraw' => 4
         ]);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePackagesTable extends Migration
+class CreatePairingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePackagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('packages', function (Blueprint $table) {
+        Schema::create('pairings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('package_cost');
-            $table->bigInteger('max_balance');
-            $table->double('max_withdraw');
-            $table->boolean('deleted')->default(0);
+            $table->bigInteger('group_deposit');
+            $table->string('prize');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePackagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('pairings');
     }
 }

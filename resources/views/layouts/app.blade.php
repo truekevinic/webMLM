@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.js') }}" defer></script>
+    <script src="{{ asset('js/d3.min.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -21,6 +21,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
 
@@ -31,7 +33,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav active">
-
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route ('home')}}">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -45,6 +46,15 @@
                     </li>
                 @endif
             @else
+            @if(Auth::user()->active_status == 'active')
+                @if(Auth::user()->name == 'admin')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{{url('package')}}">Package</a>
+                        </div>
+                    </li>
+                @endif
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -62,6 +72,7 @@
                         <a class="dropdown-item" href="{{url('wallet/withdraw/'.Auth::user()->id)}}">Withdraw</a>
                     </div>
                 </li>
+            @endif
         </ul>
         <div class="logout-btn nav-item float-right inline-box">
             <div class="user-logged inline-box">
@@ -82,7 +93,7 @@
         </div>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
+            {{csrf_field()}}
         </form>
         @endguest
     </div>

@@ -8,12 +8,6 @@
                 <div class="card">
                     <div class="card-header"><p>Profile</p></div>
                     <table style="margin: 1.5em;"  >
-                        @if($user->name != "admin")
-                            <tr>
-                                <td>Level</td>
-                                <td>{{$user->account_id}}</td>
-                            </tr>
-                        @endif
                         <tr>
                             <td>Members<hr></td>
                         </tr>

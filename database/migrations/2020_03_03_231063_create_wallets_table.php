@@ -18,6 +18,9 @@ class CreateWalletsTable extends Migration
             $table->bigInteger('user_id');
             $table->unsignedBigInteger('wallet_type_id');
             $table->bigInteger('balance');
+            $table->bigInteger('max_balance')->nullable();
+            $table->bigInteger('max_withdraw')->nullable();
+            $table->bigInteger('level')->nullable();
 
 //            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('wallet_type_id')->references('wallet_type_id')->on('wallet_types')->onDelete('cascade')->onUpdate('cascade');

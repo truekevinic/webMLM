@@ -8,8 +8,24 @@
                     <div class="card-header"><p>Pairing Wallet</p></div>
                     <div class="card-body">
                         <div class="child-member">
-                            <div class="card-body">{{$bonus->balance}}</div>
+                            <div class="card-body">Personal Deposit: {{$bonus->balance}}</div>
+                            <div class="card-body">
+                                Group Deposit ${{$total_group_sale}}
+                                @foreach($group_sale_list as $g)
+                                    <div>{{$g['user_id'].' '.$g['user_name'].' $'.$g['group_sale']}}</div>
+                                @endforeach
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><p>Deposit</p></div>
+                    <div class="card-body">
+                        <form action="add-deposit" method="post">
+                            {{csrf_field()}}
+                            <input type="number" min="0" name="deposit">
+                            <button>Add Deposit</button>
+                        </form>
                     </div>
                 </div>
                 <div class="card">

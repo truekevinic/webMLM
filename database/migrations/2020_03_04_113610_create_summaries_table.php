@@ -17,6 +17,7 @@ class CreateSummariesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('bonus_type_id')->unsigned();
+            $table->bigInteger('balance');
             $table->string('status');
             $table->string('text');
 

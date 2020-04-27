@@ -28,6 +28,24 @@
                         </div>
                     @endforeach
                 </div>
+                @if(Auth::user()->name != 'admin')
+                    <div class="card">
+                        <div class="card-header"><p>Upgrade Package</p></div>
+                        <div class="card-body">
+                            <form action="/wallet/upgrade-package" method="post">
+                                {{csrf_field()}}
+                                <select name="upgrade_package" id="upgrade_package">
+                                    @foreach($packages as $p)
+                                        @if($p->id > $user_package)
+                                            <option value="{{$p->id}}">{{'Get Max Withdraw $'.($p->max_withdraw*(double)$p->max_balance).' for $'.$p->package_cost}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <button>Upgrade</button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

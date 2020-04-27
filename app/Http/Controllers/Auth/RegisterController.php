@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Account;
 use App\Http\Controllers\UserController;
 use App\Package;
+use App\Rules\RegisterRule;
 use App\User;
 use App\Summary;
 use App\Http\Controllers\Controller;
 use App\Wallet;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -58,7 +60,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['required', 'string', 'exists:users,username'],
+            'referral' => ['required', 'string', 'exists:users,username', new RegisterRule],
             'package' => ['required', 'exists:packages,id']
         ]);
     }
@@ -75,70 +77,46 @@ class RegisterController extends Controller
         $user_id = User::get()->last()->id + 1;
         $uController = new UserController();
 
-        $this->jackpot($referral->id, $user_id, $uController);
-        $this->pairing($referral->id);
-        $this->direct($data['package'], $referral->id, $user_id);
+        $package = Package::find($data['package']);
+        $max_balance = $package->max_balance;
+        $paid_balance = $package->package_cost;
+        $max_withdraw = $package->max_withdraw;
 
-        //add net wallet
-        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0]); //direct
-        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0]); //pairing
-        Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0]); //jackpot
+        $childCount = User::where('parent_id','=',$referral->id)->count();
+
+        $parent_id = null;
+        $active_status = 'pending';
+
+        if ($childCount < 3) {
+            $parent_id = $referral->id;
+            $active_status = 'active';
+
+            $uController->jackpot($parent_id, $user_id);
+            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_id, $user_id);
+
+            //add new wallet
+            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
+            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
+            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //jackpot
+        }
 
         return User::create([
-            'parent_id' => $referral->id,
+            'referral_id' => $referral->id,
+            'parent_id' => $parent_id,
             'username' => $data['username'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'status' => 'member',
             'account_id' => 1,
-            'package_id' => $data['package']
+            'package_id' => $data['package'],
+            'active_status' => $active_status
         ]);
-    }
-
-    public function direct($package, $referral_id, $user_id){
-        $balance = Package::find($package)->package_cost;
-
-        $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 1)->first();
-        $addBalance = (double)$balance*0.2;
-        $referralWallet->balance += (int)$addBalance;
-        $referralWallet->save();
-
-        Summary::create(['user_id'=>$referral_id, 'bonus_type_id'=>1, 'status'=>'increment','text'=>"$addBalance from user with id $user_id because of a first registration"]);
-    }
-
-    public function pairing($referral_id){
-        $bonus = 0;
-        $child = User::where('parent_id', '=', $referral_id)->count() + 1;
-        if ($child == 20) $bonus = 500;
-        else if ($child == 60) $bonus = 1000;
-        else if ($child == 160) $bonus = 2000;
-        else if ($child == 400) $bonus = 5000;
-        else if ($child == 1000) $bonus = 10000;
-        else if ($child == 2000000) $bonus = 20000;
-
-        if ($bonus != 0) {
-            $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 2)->first();
-            $referralWallet->balance += $bonus;
-            $referralWallet->save();
-
-            Summary::create(['user_id'=>$referral_id, 'bonus_type_id'=>2, 'status'=>'increment','text'=>"$bonus because you have got $child members!"]);
-        }
-    }
-
-    public function jackpot($referral_id, $user_id, $uController){
-        $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 3)->first();
-        $referralWallet->balance += 30;
-        $referralWallet->save();
-
-        Summary::create(['user_id'=>$referral_id, 'bonus_type_id'=>3, 'status'=>'increment','text'=>"30 from user with id $user_id because of a first registration"]);
-
-        $uController->checkStatusJackpot($referral_id);
     }
 
     public function showRegistrationForm()
     {
-        $packages = Package::all();
+        $packages = Package::where('deleted',0)->get();
         return view('auth.register', compact(['packages', $packages]));
     }
 }
