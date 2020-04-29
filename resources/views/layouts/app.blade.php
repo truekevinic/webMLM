@@ -69,7 +69,6 @@
                         <a class="dropdown-item" href="{{url('wallet/direct/'.Auth::user()->id)}}">Direct</a>
                         <a class="dropdown-item" href="{{url('wallet/pairing/'.Auth::user()->id)}}">Pairing</a>
                         <a class="dropdown-item" href="{{url('wallet/jackpot/'.Auth::user()->id)}}">Jackpot</a>
-                        <a class="dropdown-item" href="{{url('wallet/withdraw/'.Auth::user()->id)}}">Withdraw</a>
                     </div>
                 </li>
             @endif

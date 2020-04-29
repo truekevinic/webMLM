@@ -143,44 +143,8 @@ class UserController extends Controller
         return back();
     }
 
-    //menu member
-//    public function child($id){
-//        $user = User::find($id);
-//        $children = User::where('parent_id', '=', $id)->get();
-//        $this->childList = [];
-//
-//        $unregisterUser = User::where('referral_id','=',$id)->where('active_status','=','pending')->get();
-//
-//        $childList = $this->childFind($id);
-//
-//        dd($childList);
-//
-//        return view('user.child', compact(['user', $user], ['children', $children], ['unregisterUser', $unregisterUser]));
-//    }
-//
-//    public function childFind($id){
-//        $childs = User::where('parent_id', '=', $id)->get();
-//
-//        $childCount = count($childs);
-//        $array = [];
-////        dd($childCount);
-//
-//        for ($i = 0; $i < $childCount; $i++) {
-//            $childContent = $this->childFind($childs[$i]->id);
-////            dd($childContent);
-//            $content = [
-//                'user_id' => $childs[$i]->id,
-//                'user_name' => $childs[$i]->username,
-//                'child' => $childContent
-//            ];
-//            array_push($array, $content);
-//        }
-//        return $array;
-//    }
-
     public function summary($id){
         $summaries = Summary::where('user_id', $id)->get();
-//        dd($summaries);
         return view('user.summary', compact(['summaries', $summaries]));
     }
 
@@ -283,22 +247,22 @@ class UserController extends Controller
     }
 
     public function withdraw(Request $request){
-        $wallet1 = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 1)->first();
-        $max_withdraw = $wallet1->max_withdraw;
-        if ($max_withdraw != null) {
-            $request->validate([
-                'wallet1' => "numeric|max:$max_withdraw"
-            ]);
-        }
-
-        if ($request->wallet1 > 0) {
-            $wallet1->balance -= $request->wallet1;
-            $wallet1->save();
-
-            $wallet1->max_withdraw -= $request->wallet1;
-
-            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'balance' => $request->wallet1, 'status'=>'decrement','text'=>"$request->wallet1 after withdraw"]);
-        }
+//        $wallet1 = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 1)->first();
+//        $max_withdraw = $wallet1->max_withdraw;
+//        if ($max_withdraw != null) {
+//            $request->validate([
+//                'wallet1' => "numeric|max:$max_withdraw"
+//            ]);
+//        }
+//
+//        if ($request->wallet1 > 0) {
+//            $wallet1->balance -= $request->wallet1;
+//            $wallet1->save();
+//
+//            $wallet1->max_withdraw -= $request->wallet1;
+//
+//            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'balance' => $request->wallet1, 'status'=>'decrement','text'=>"$request->wallet1 after withdraw"]);
+//        }
 
         if ($request->wallet2 > 0) {
             $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 2)->first();

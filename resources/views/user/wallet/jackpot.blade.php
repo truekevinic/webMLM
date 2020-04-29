@@ -28,6 +28,20 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="card">
+                    <div class="card-header"><p>Withdraw</p></div>
+                    <form action="/wallet/withdraw/jackpot" method="post">
+                        {{csrf_field()}}
+                        <div class="card-body">
+                            <div class="child-member">
+                                <input type="number" min="0" name="wallet3">
+                            </div>
+                        </div>
+                    </form>
+                    @foreach($errors->all() as $e)
+                        <div>$e</div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

@@ -22,8 +22,13 @@ Route::get('/summary/{id}', 'UserController@summary')->name('summary');
 Route::get('/wallet/direct/{id}', 'UserController@directView')->name('direct');
 Route::get('/wallet/jackpot/{id}', 'UserController@jackpotView')->name('jackpot');
 Route::get('/wallet/pairing/{id}', 'UserController@pairingView')->name('pairing');
-Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView')->name('withdraw_view');
-Route::post('/wallet/withdraw', 'UserController@withdraw')->name('withdraw');
+
+//Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView')->name('withdraw_view');
+//Route::post('/wallet/withdraw', 'UserController@withdraw')->name('withdraw');
+
+Route::post('/wallet/withdraw/direct', 'WalletController@directWithdraw');
+Route::post('/wallet/withdraw/pairing', 'WalletController@pairingWithdraw');
+Route::post('/wallet/withdraw/jackpot', 'WalletController@jackpotWithdraw');
 
 Route::post('/wallet/upgrade-package', 'UserController@upgradePackage');
 
