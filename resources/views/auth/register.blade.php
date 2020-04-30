@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-9 register-right bg-info">
         <h3 class="register-heading">Register as our partner</h3>
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}">@csrf
             <div class="row register-form">
                 <div class="col-md-6">
                     <div class="form-group input-group">
