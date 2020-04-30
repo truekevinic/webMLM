@@ -12,9 +12,9 @@
     </div>
     <div class="col-md-9 register-right bg-info">
         <h3 class="register-heading">Register as our partner</h3>
-        <div class="row register-form">
-            <div class="col-md-6">
-                <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}">
+            <div class="row register-form">
+                <div class="col-md-6">
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-warning"><i class="fas fa-user"></i></span>
@@ -64,67 +64,69 @@
                             required autocomplete="new-password" value="{{ old('password_confirmation')}}"
                             placeholder="Confirm Password">
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-warning"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email') }}" required autocomplete="email"
+                            placeholder="Your Email">
+
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-warning"><i class="fas fa-phone"></i></span>
+                        </div>
+                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
+                            placeholder="Your Phone *" value="" />
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-warning"><i class="fas fa-archive"></i></span>
+                        </div>
+                        <select name="package" id="package" class="form-control @error('password') is-invalid @enderror"
+                            required>
+                            <option value="">Select Package</option>
+                            @foreach($packages as $p)
+                            <option value="{{$p->id}}">
+                                {{'Get Max Withdraw $'.($p->max_withdraw*(double)$p->max_balance).' for $'.$p->package_cost}}
+                            </option>
+                            @endforeach
+                        </select>
+
+                        @error('package')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-warning"><i class="fas fa-users"></i></span>
+                        </div>
+                        <input id="referral" type="text" class="form-control @error('referral') is-invalid @enderror"
+                            name="referral" required placeholder="Referral User">
+
+                        @error('referral')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Register') }}
+                    </button>
+                </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-warning"><i class="fas fa-envelope"></i></span>
-                    </div>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Your Email">
-
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-warning"><i class="fas fa-phone"></i></span>
-                    </div>
-                    <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
-                        placeholder="Your Phone *" value="" />
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-warning"><i class="fas fa-archive"></i></span>
-                    </div>
-                    <select name="package" id="package" class="form-control @error('password') is-invalid @enderror"
-                        required>
-                        <option value="">Select Package</option>
-                        @foreach($packages as $p)
-                        <option value="{{$p->id}}">
-                            {{'Get Max Withdraw $'.($p->max_withdraw*(double)$p->max_balance).' for $'.$p->package_cost}}
-                        </option>
-                        @endforeach
-                    </select>
-
-                    @error('package')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bg-warning"><i class="fas fa-users"></i></span>
-                    </div>
-                    <input id="referral" type="text" class="form-control @error('referral') is-invalid @enderror"
-                        name="referral" required placeholder="Referral User">
-
-                    @error('referral')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Register') }}
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection
