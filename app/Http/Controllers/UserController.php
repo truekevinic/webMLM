@@ -70,25 +70,6 @@ class UserController extends Controller
 
     protected $idx = [];
 
-    protected $childList = [];
-    public function child($id){
-        $user = User::find($id);
-        $children = User::where('parent_id', '=', $id)->get();
-        $this->childList = [];
-
-        $unregisterUser = User::where('referral_id','=',$id)->where('active_status','=','pending')->get();
-
-        $content = [
-            'parent_id' => "",
-            'user_id' => (string)$id,
-            'user_name' => $user->username
-        ];
-//        array_push($this->childList, $content);
-        $this->childFind($id);
-
-//        dd($this->childList);
-        return view('user.child', compact(['user', $user], ['children', $children], ['unregisterUser', $unregisterUser]))->with('childList', $this->childList);
-    }
 
     public function childFind($id){
         $childs = User::where('parent_id', '=', $id)->get();
@@ -143,9 +124,30 @@ class UserController extends Controller
         return back();
     }
 
+    protected $childList = [];
     public function summary($id){
+//        child
+
+        $user = User::find($id);
+        $children = User::where('parent_id', '=', $id)->get();
+        $this->childList = [];
+
+        $unregisterUser = User::where('referral_id','=',$id)->where('active_status','=','pending')->get();
+
+        $content = [
+            'parent_id' => "",
+            'user_id' => (string)$id,
+            'user_name' => $user->username
+        ];
+        $this->childFind($id);
+
+//        summary
         $summaries = Summary::where('user_id', $id)->get();
-        return view('user.summary', compact(['summaries', $summaries]));
+        $total = 0;
+        foreach($summaries as $s){
+            $total = $s->balance;
+        }
+        return view('user.summary', compact(['summaries', $summaries], ['total', $total], ['user', $user], ['children', $children], ['unregisterUser', $unregisterUser]))->with('childList', $this->childList);
     }
 
     public function directView($id){

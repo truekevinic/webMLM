@@ -57,12 +57,15 @@
                         </div>
                     </li>
                 @endif
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url('summary/'.Auth::user()->id)}}">Summary <span class="sr-only">(current)</span></a>
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownId">
                         <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                        <a class="dropdown-item" href="{{url('summary/'.Auth::user()->id)}}">Summary</a>
-                        <a class="dropdown-item" href="{{url('child/'.Auth::user()->id)}}">Members</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -107,6 +110,13 @@
         </main>
     </div>
 </div>
+
+<footer>
+    <div class="container-fluid bg-dark py-2 text-center">
+        <h6 class="text-light">&copy; SKY x Saya team</h6>
+    </div>
+</footer>
+
 <script src="{{ asset('js/translate.js') }}" defer></script>
 </body>
 </html>
