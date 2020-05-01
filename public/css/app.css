@@ -123,8 +123,8 @@
     background-repeat: no-repeat;
 }
 .backGNoImage{
-    background: rgb(173,46,136);
-    background: linear-gradient(172deg, rgba(173,46,136,1) 14%, rgba(11,15,118,1) 96%, rgba(0,0,0,1) 100%);
+    background: rgb(255,82,201);
+    background: linear-gradient(225deg, rgba(255,82,201,1) 20%, rgba(0,138,221,1) 60%);
 }
 
 .inline-box{
@@ -137,4 +137,31 @@
 
 .white {
     color: white;
+}
+
+.profile-picture-style{
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+}
+
+.sticky-positioning{
+    position: sticky;
+    top: 3em;
+}
+
+/*tree design*/
+circle{
+    fill:#e36275;
+}
+path{
+    fill:none;
+    stroke:#85baf2;
+}
+
+/*select design*/
+
+.select-design{
+    padding: 0.5em;
+
 }
