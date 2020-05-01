@@ -121,6 +121,8 @@
     background-image: url("../images/background-landing-page.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-position-y: center;
+    height: 600px;
 }
 .backGNoImage{
     background: rgb(255,82,201);

@@ -4,14 +4,8 @@
     <header>
         <div class="container-fluid pt-5 backG">
             <div class="row-sm" style="display: flex;">
-                <div class="jumbotron col-sm-7 align-self-center">
-                    <h3>Hello, world!</h3>
-                    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-                        featured content or information.</p>
-                    <hr class="my-4">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.
-                    </p>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                <div class="jumbotron col-sm-7 align-self-center my-auto">
+                   
                 </div>
             </div>
         </div>
@@ -122,13 +116,4 @@
             </div>
         </div>
     </div>
-
-    <footer>
-
-        <div class="container-fluid bg-dark py-2 text-center">
-
-            <h6 class="text-light">&copy; SKY x Saya team</h6>
-
-        </div>
-    </footer>
 @endsection
