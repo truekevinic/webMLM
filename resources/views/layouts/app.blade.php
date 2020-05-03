@@ -25,11 +25,12 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-dark backGNoImage" >
+    <a class="navbar-brand" href="#">LOGO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -112,7 +113,7 @@
 </div>
 
 <footer>
-    <div class="container-fluid bg-dark py-2 text-center">
+    <div class=" footer container-fluid backGNoImage py-2 text-center">
         <h6 class="text-light">&copy; SKY x Saya team</h6>
     </div>
 </footer>
