@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="">
                 <div class="card">
-                    <div class="card-header"><p>Package</p></div>
+                    <div class="card-header"><h3>Package</h3></div>
                     <div class="card-body mx-auto">
 
                     
@@ -35,7 +35,7 @@
                             </tr>
                         </table>
                         <div>
-                            <button id="btnAdd">Add</button>
+                            <button class="btn btn-secondary" id="btnAdd" >Add</button>
                         </div>
                     </div>
                 </div>

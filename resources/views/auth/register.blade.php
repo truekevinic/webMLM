@@ -83,13 +83,6 @@
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-dark text-light"><i class="fas fa-phone"></i></span>
-                        </div>
-                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
-                            placeholder="Your Phone *" value="" />
-                    </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
                             <span class="input-group-text bg-dark text-light"><i class="fas fa-archive"></i></span>
                         </div>
                         <select name="package" id="package" class="form-control @error('password') is-invalid @enderror"
