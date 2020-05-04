@@ -1,16 +1,17 @@
+*{
+    font-family: "Yu Gothic";
+}
+
 .float-right{
     right: 10px;
     position: absolute;
 }
 .logout-btn a{
-    border: 2px solid grey !important;
-    color: grey !important;
+    background-color: black !important;
+    border: none !important;
+    color: white !important;
 }
-.logout-btn a:hover{
-    border: 2px solid azure !important;
-    color: azure !important;
-    transition: 1s;
-}
+
 .register{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
     margin-top: 3%;
@@ -154,6 +155,12 @@ footer{
     border-radius: 50%;
 }
 
+.bigger-profile-picture-style{
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+}
+
 .sticky-positioning{
     position: sticky;
     top: 3em;
@@ -171,6 +178,49 @@ path{
 /*select design*/
 
 .select-design{
-    padding: 0.5em;
+    padding: 0.5em 1em 0.5em 1em;
 
+}
+
+.backgroundGrey{
+    background-color: #f0f0f0;
+    padding: 2em;
+}
+
+.primary-color{
+    color: #008add;
+}
+
+/*design-background*/
+.gradient {
+    background: linear-gradient(-45deg, #f291b5, #ce91f2, #91acf2, #91f2cd);
+    background-size: 400% 400%;
+    opacity: 50%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.parallax {
+    /* The image used */
+    background-image: url(https://www.multisoft.com/wp-content/uploads/2019/11/network-marketing-tips.jpeg);
+
+    /* Set a specific height */
+    min-height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

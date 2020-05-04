@@ -51,11 +51,8 @@
             @else
             @if(Auth::user()->active_status == 'active')
                 @if(Auth::user()->name == 'admin')
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="{{url('package')}}">Package</a>
-                        </div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{url('package')}}">Package <span class="sr-only">(current)</span></a>
                     </li>
                 @endif
 
@@ -63,20 +60,10 @@
                     <a class="nav-link" href="{{url('summary/'.Auth::user()->id)}}">Summary <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                    </div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('profile') }}">Profile <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Wallet</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="{{url('wallet/direct/'.Auth::user()->id)}}">Direct</a>
-                        <a class="dropdown-item" href="{{url('wallet/pairing/'.Auth::user()->id)}}">Pairing</a>
-                        <a class="dropdown-item" href="{{url('wallet/jackpot/'.Auth::user()->id)}}">Jackpot</a>
-                    </div>
-                </li>
+
             @endif
         </ul>
         <div class="logout-btn nav-item float-right inline-box">
@@ -111,7 +98,7 @@
         </main>
     </div>
 </div>
-
+<br>
 <footer>
     <div class=" footer container-fluid backGNoImage py-2 text-center">
         <h6 class="text-light">&copy; SKY x Saya team</h6>
