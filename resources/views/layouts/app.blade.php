@@ -35,7 +35,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav active">
+        <ul class="navbar-nav active mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route ('home')}}">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -79,7 +79,7 @@
                 </li>
             @endif
         </ul>
-        <div class="logout-btn nav-item float-right inline-box">
+        <div class="logout-btn my-2 my-lg-0 inline-box">
             <div class="user-logged inline-box">
                 <li class="nav-item">
                     <div id="google_translate_element"></div>

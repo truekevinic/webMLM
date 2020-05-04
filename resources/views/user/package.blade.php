@@ -4,10 +4,13 @@
 
     <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="">
                 <div class="card">
-                    <div class="card-header"><p>Package</p></div>
-                    <table class="tablePackage" style="margin: 1.5em;"  >
+                    <div class="card-header"><h3>Package</h3></div>
+                    <div class="card-body mx-auto">
+
+                    
+                    <table class="tablePackage table" style="margin: 1.5em;"  >
 {{--                        @foreach($packages as $p)--}}
 {{--                            <tr>--}}
 {{--                                <td class="profile-member-list"> <li style="list-style: none;">{{$p->package_cost}}</li></td>--}}
@@ -16,13 +19,14 @@
 {{--                            </tr>--}}
 {{--                        @endforeach--}}
                     </table>
-                    <div>
+                </div>
+                    <div class="card-footer">
                         <div>Add Package</div>
-                        <table>
+                        <table class="table">
                             <tr>
-                                <th class="profile-member-list"> <li style="list-style: none;">Package Cost</li></th>
-                                <th class="profile-member-list"> <li style="list-style: none;">Max Balance</li></th>
-                                <th class="profile-member-list"> <li style="list-style: none;">Max Withdraw</li></th>
+                                <th > <li style="list-style: none;">Package Cost</li></th>
+                                <th > <li style="list-style: none;">Max Balance</li></th>
+                                <th > <li style="list-style: none;">Max Withdraw</li></th>
                             </tr>
                             <tr>
                                 <td><input type="number" name="addPackageCost" id="addPackageCost"></td>
@@ -49,17 +53,17 @@
             var packageDiv = "";
 
             packageDiv += '<tr>' +
-                '<th class="profile-member-list"> <li style="list-style: none;">Package Cost</li></th>' +
-                '<th class="profile-member-list"> <li style="list-style: none;">Max Balance</li></th>' +
-                '<th class="profile-member-list"> <li style="list-style: none;">Max Withdraw</li></th>' +
+                '<th > <li style="list-style: none;">Package Cost</li></th>' +
+                '<th > <li style="list-style: none;">Max Balance</li></th>' +
+                '<th > <li style="list-style: none;">Max Withdraw</li></th>' +
             '</tr>'
 
             for (let i = 0; i < packageList.length ; i++) {
                 packageDiv += '<tr>'+
-                    '<td class="profile-member-list"> <li style="list-style: none;">'+packageList[i].package_cost+'</li></td>'+
-                    '<td class="profile-member-list"> <li style="list-style: none;">'+packageList[i].max_balance+'</li></td>'+
-                    '<td class="profile-member-list"> <li style="list-style: none;">'+packageList[i].max_withdraw+'</li></td>'+
-                    '<td class="profile-member-list"> <li style="list-style: none;"><button onclick="" class="btnDelete" id="btnDeletePackage'+i+'">Remove</button></li></td>' +
+                    '<td > <li style="list-style: none;">'+packageList[i].package_cost+'</li></td>'+
+                    '<td > <li style="list-style: none;">'+packageList[i].max_balance+'</li></td>'+
+                    '<td > <li style="list-style: none;">'+packageList[i].max_withdraw+'</li></td>'+
+                    '<td > <li style="list-style: none;"><button onclick="" class="btnDelete btn btn-secondary" id="btnDeletePackage'+i+'">Remove</button></li></td>' +
                     '</tr>'
             }
             $('.tablePackage').html(packageDiv);
