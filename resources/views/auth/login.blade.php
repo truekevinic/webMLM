@@ -5,7 +5,7 @@
     <div class="row justify-content-center border-0">
         <div class="col-md-8 my-5">
             <div class="card ">
-                <div class="card-header bg-dark text-light ">
+                <div class="card-header bg-primary text-light ">
                     <h2>Login</h2>
                 </div>
                 <br>
@@ -14,7 +14,7 @@
                         {{csrf_field()}}
                         <div class="form-group row input-group mx-auto  ">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text bg-dark text-light"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text bg-primary text-light"><i class="fas fa-user"></i></span>
                                 </div>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
                                 <br>
@@ -29,7 +29,7 @@
 
                         <div class="form-group row input-group mx-auto " >
                             <div class="input-group-prepend ">
-                            <span class="input-group-text bg-dark text-light"><i class="fas fa-key"></i></span>
+                            <span class="input-group-text bg-primary text-light"><i class="fas fa-key"></i></span>
                             </div>
                             
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
@@ -56,7 +56,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="align-middle mx-auto">
-                                <button type="submit" class="btn btn-dark">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
 
@@ -65,7 +65,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="card-footer bg-dark text-light">
+                <div class="card-footer bg-primary text-light">
                     <div class="d-flex justify-content-center links">
                         Don't have an account?<a  href="{{ route('register') }}">Sign Up</a>
                     </div>
