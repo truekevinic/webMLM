@@ -42,8 +42,8 @@
                             
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group row ">
+                            <div class="mx-auto">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -67,11 +67,11 @@
                 </div>
                 <div class="card-footer bg-primary text-light">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account?<a  href="{{ route('register') }}">Sign Up</a>
+                        Don't have an account?<a style=" color: rgb(0, 0, 0);" href="{{ route('register') }}">Sign Up</a>
                     </div>
                     <div class="d-flex justify-content-center">
                         @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="" style="color: rgb(0, 0, 0);"  href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
