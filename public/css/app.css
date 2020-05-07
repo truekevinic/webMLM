@@ -136,6 +136,12 @@ footer{
     background: rgb(255,82,201);
     background: linear-gradient(225deg, rgba(255,82,201,1) 20%, rgba(0,138,221,1) 60%);
 }
+/* .backGNoImage{
+    background-image: url("../images/background.png");
+    background-size: contain;
+    background-repeat: repeat;
+    background-position-y: center;
+} */
 
 .inline-box{
     display: flex;

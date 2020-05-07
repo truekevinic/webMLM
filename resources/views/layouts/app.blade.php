@@ -25,6 +25,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link href="{{ asset('css/cleanboot.css') }}" rel="stylesheet">
 
 </head>
 <body>
