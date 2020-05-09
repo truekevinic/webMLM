@@ -70,6 +70,25 @@ class UserController extends Controller
 
     protected $idx = [];
 
+    protected $childList = [];
+    public function child($id){
+        $user = User::find($id);
+        $children = User::where('parent_id', '=', $id)->get();
+        $this->childList = [];
+
+        $unregisterUser = User::where('referral_id','=',$id)->where('active_status','=','pending')->get();
+
+        $content = [
+            'parent_id' => "",
+            'user_id' => (string)$id,
+            'user_name' => $user->username
+        ];
+//        array_push($this->childList, $content);
+        $this->childFind($id);
+
+//        dd($this->childList);
+        return view('user.child', compact(['user', $user], ['children', $children], ['unregisterUser', $unregisterUser]))->with('childList', $this->childList);
+    }
 
     public function childFind($id){
         $childs = User::where('parent_id', '=', $id)->get();
@@ -124,72 +143,17 @@ class UserController extends Controller
         return back();
     }
 
-    protected $childList = [];
     public function summary($id){
-//        child
-
-        $user = User::find($id);
-        $children = User::where('parent_id', '=', $id)->get();
-        $this->childList = [];
-
-        $unregisterUser = User::where('referral_id','=',$id)->where('active_status','=','pending')->get();
-
-        $content = [
-            'parent_id' => "",
-            'user_id' => (string)$id,
-            'user_name' => $user->username
-        ];
-        $this->childFind($id);
-
-//        summary
         $summaries = Summary::where('user_id', $id)->get();
-        $total = 0;
-        foreach($summaries as $s){
-            $total = $s->balance;
-        }
-//        wallet
-        $bonusDirect = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 1)->first();
-        $summariesDirect = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 1)->get();
-        $packages = Package::where('deleted',0)->get();
-        $user_package = Auth::user()->package_id;
-//        jackpot
-        $bonusJackpot = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
-        $summariesJackpot = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
-//        pairing
-        $bonusPairing = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 2)->first();
-        $summariesPairing = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 2)->get();
-
-        $groupSale = $this->myGroupSales($id);
-
-        return view('user.summary', compact(['summaries', $summaries], ['total', $total], ['user', $user],
-            ['children', $children], ['unregisterUser', $unregisterUser],['bonusDirect', $bonusDirect],
-            ['summariesDirect', $summariesDirect], ['packages', $packages],
-            ['user_package', $user_package],['bonusJackpot', $bonusJackpot], ['summariesJackpot', $summariesJackpot] ,
-            ['bonusPairing', $bonusPairing], ['summariesPairing', $summariesPairing]
-        ))->with('childList', $this->childList)->with('group_sale_list', $groupSale['group_sale_list']
-        )->with('total_group_sale', $groupSale['total_group_sale']);
+        return view('user.summary', compact(['summaries', $summaries]));
     }
 
     public function directView($id){
-//        direct
-        $bonusDirect = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 1)->first();
-        $summariesDirect = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 1)->get();
+        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 1)->first();
+        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 1)->get();
         $packages = Package::where('deleted',0)->get();
         $user_package = Auth::user()->package_id;
-//        jackpot
-        $bonusJackpot = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
-        $summariesJackpot = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
-//        pairing
-        $bonusPairing = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 2)->first();
-        $summariesPairing = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 2)->get();
-
-        $groupSale = $this->myGroupSales($id);
-
-        return view('user.wallet.direct', compact(['bonusDirect', $bonusDirect],
-            ['summariesDirect', $summariesDirect], ['packages', $packages],
-            ['user_package', $user_package],['bonusJackpot', $bonusJackpot], ['summariesJackpot', $summariesJackpot] ,
-            ['bonusPairing', $bonusPairing], ['summariesPairing', $summariesPairing]
-        ))->with('group_sale_list', $groupSale['group_sale_list'])->with('total_group_sale', $groupSale['total_group_sale']);
+        return view('user.wallet.direct', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package]));
     }
 
     public function upgradePackage(Request $request){
@@ -203,19 +167,19 @@ class UserController extends Controller
     }
 
     public function jackpotView(int $id){
-        $bonusJackpot = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
-        $summariesJackpot = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
-        return view('user.wallet.jackpot', compact(['bonusJackpot', $bonusJackpot], ['summariesJackpot', $summariesJackpot]));
+        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
+        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
+        return view('user.wallet.jackpot', compact(['bonus', $bonus], ['summaries', $summaries]));
     }
 
-//    public function pairingView($id){
-//        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 2)->first();
-//        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 2)->get();
-//
-//        $groupSale = $this->myGroupSales($id);
-//
-//        return view('user.wallet.pairing', compact(['bonus', $bonus], ['summaries', $summaries]))->with('group_sale_list', $groupSale['group_sale_list'])->with('total_group_sale', $groupSale['total_group_sale']);
-//    }
+    public function pairingView($id){
+        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 2)->first();
+        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 2)->get();
+
+        $groupSale = $this->myGroupSales($id);
+
+        return view('user.wallet.pairing', compact(['bonus', $bonus], ['summaries', $summaries]))->with('group_sale_list', $groupSale['group_sale_list'])->with('total_group_sale', $groupSale['total_group_sale']);
+    }
 
     public function myGroupSales($id) {
         $members = User::where('parent_id', '=', $id)->get();

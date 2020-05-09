@@ -16,11 +16,12 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/profile', 'UserController@profile')->name('profile');
+Route::get('/child/{id}', 'UserController@child')->name('child');
 Route::get('/summary/{id}', 'UserController@summary')->name('summary');
-Route::post('/summary/add-deposit', 'UserController@addDeposit');
-Route::post('/summary/add-member', 'UserController@addMember');
-//Route::get('/wallet/jackpot/{id}', 'UserController@directView')->name('jackpot');
-//Route::get('/wallet/pairing/{id}', 'UserController@directView')->name('pairing');
+
+Route::get('/wallet/direct/{id}', 'UserController@directView')->name('direct');
+Route::get('/wallet/jackpot/{id}', 'UserController@jackpotView')->name('jackpot');
+Route::get('/wallet/pairing/{id}', 'UserController@pairingView')->name('pairing');
 
 //Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView')->name('withdraw_view');
 //Route::post('/wallet/withdraw', 'UserController@withdraw')->name('withdraw');
@@ -31,7 +32,9 @@ Route::post('/wallet/withdraw/jackpot', 'WalletController@jackpotWithdraw');
 
 Route::post('/wallet/upgrade-package', 'UserController@upgradePackage');
 
+Route::post('/wallet/pairing/add-deposit', 'UserController@addDeposit');
 
+Route::post('/child/add-member', 'UserController@addMember');
 
 Route::group(['middleware','admin'], function (){
     Route::get('/package', 'UserController@viewPackage');

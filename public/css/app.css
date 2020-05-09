@@ -118,7 +118,7 @@
     color: white;
 }
 footer{
-    position: absolute;
+    position: relative;
     width: 100%;
     bottom: 0;
     right: 0;
