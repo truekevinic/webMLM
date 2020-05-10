@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,7 @@ class LoginController extends Controller
     {
         $user = User::where('email', '=', $request->email)->first();
         if ($user != null) {
-            if ($user->role_status == 'approved') {
+            if ($user->role_status == 'approved' || $user->role_status == 'admin') {
                 $this->validateLogin($request);
 
                 if (method_exists($this, 'hasTooManyLoginAttempts') &&

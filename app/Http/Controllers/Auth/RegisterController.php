@@ -78,29 +78,10 @@ class RegisterController extends Controller
         $uController = new UserController();
 
         $package = Package::find($data['package']);
-        $max_balance = $package->max_balance;
-        $paid_balance = $package->package_cost;
-        $max_withdraw = $package->max_withdraw;
 
-//        $childCount = User::where('parent_id','=',$referral->id)->count();
-
-//        $parent_id = null;
         $active_status = 'pending';
         $role_status = 'unapproved';
         $suspend_status = 'unsuspend';
-
-//        if ($childCount < 3) {
-//            $parent_id = $referral->id;
-//            $active_status = 'active';
-//
-//            $uController->jackpot($parent_id, $user_id);
-//            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_id, $user_id);
-//
-//            //add new wallet
-//            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
-//            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
-//            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //jackpot
-//        }
 
         $referral_code = substr(str_shuffle($this->generateHashWithSalt($user_id)),0,8);
         $otherUser = User::where('referral_code','=',$referral_code)->count();
@@ -135,8 +116,9 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-
         $packages = Package::where('deleted',0)->get();
-        return view('auth.register', compact(['packages', $packages]));
+        return view('auth.register', compact(['packages', $packages]))->with('referral_code', '');
     }
+
+
 }

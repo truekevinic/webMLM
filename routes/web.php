@@ -13,6 +13,8 @@
 
 \Illuminate\Support\Facades\Auth::routes();
 
+Route::get('/referral_code/{code}', 'UserController@referralForm');
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/update-profile', 'UserController@viewUpdateProfile');
 Route::post('/update', 'UserController@updateProfile');

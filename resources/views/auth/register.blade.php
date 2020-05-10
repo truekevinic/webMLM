@@ -106,7 +106,7 @@
                             <span class="input-group-text bg-dark text-light"><i class="fas fa-users"></i></span>
                         </div>
                         <input id="referral_code" type="text" class="form-control @error('referral_code') is-invalid @enderror"
-                            name="referral_code" required placeholder="Referral User">
+                            name="referral_code" required placeholder="Referral User" value="{{$referral_code}}">
 
                         @error('referral_code')
                         <span class="invalid-feedback" role="alert">

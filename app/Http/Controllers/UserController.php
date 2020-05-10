@@ -74,6 +74,11 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function referralForm($referral_code) {
+        $packages = Package::where('deleted',0)->get();
+        return view('auth.register', compact(['packages', $packages]))->with('referral_code', $referral_code);
+    }
+
     public function updateProfile(Request $request){
         $user = User::find(Auth::user()->id);
 
@@ -116,6 +121,8 @@ class UserController extends Controller
                     $referralWallet->save();
 
                     Summary::create(['user_id'=>$user->id, 'bonus_type_id'=>3, 'balance' => $account[$arr]->upgrade_cost, 'status'=>'decrement','text'=>$account[$arr]->upgrade_cost." for upgrade level to ".($arr+1)]);
+
+                    $grand = $user['parent'.$wallet->level];
 
                     $grand = UserController::grandSearch($user->parent_id, $wallet->level);
                     $grandUser = User::find($grand);
