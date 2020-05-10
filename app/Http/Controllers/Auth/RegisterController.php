@@ -57,10 +57,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users', 'min:3'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['required', 'string', 'exists:users,referral_code', new RegisterRule],
+            'referral_code' => ['required', 'string', 'exists:users', new RegisterRule],
             'package' => ['required', 'exists:packages,id']
         ]);
     }
@@ -82,50 +82,43 @@ class RegisterController extends Controller
         $paid_balance = $package->package_cost;
         $max_withdraw = $package->max_withdraw;
 
-        $childCount = User::where('parent_id','=',$referral->id)->count();
+//        $childCount = User::where('parent_id','=',$referral->id)->count();
 
-        $parent_id = null;
+//        $parent_id = null;
         $active_status = 'pending';
         $role_status = 'unapproved';
         $suspend_status = 'unsuspend';
-        $profile_image = 'none';
 
-        $referral_code = '';
-        $referral_concat = $data['username'] + $user_id;
+//        if ($childCount < 3) {
+//            $parent_id = $referral->id;
+//            $active_status = 'active';
+//
+//            $uController->jackpot($parent_id, $user_id);
+//            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_id, $user_id);
+//
+//            //add new wallet
+//            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
+//            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
+//            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //jackpot
+//        }
 
-        while($referral_concat != ''){
-            for($i=0;$i<strlen($referral_concat);$i++){
-                $pos = rand(1, 2);
-                if(rand == 1){
-                    $referral_code += $referral_concat[$i];
-                    str_replace($referral_concat[$i], '');
-                }
-            }
-        }
-
-        if ($childCount < 3) {
-            $parent_id = $referral->id;
-            $active_status = 'active';
-
-            $uController->jackpot($parent_id, $user_id);
-            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_id, $user_id);
-
-            //add new wallet
-            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
-            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
-            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //jackpot
+        $referral_code = substr(str_shuffle($this->generateHashWithSalt($user_id)),0,8);
+        $otherUser = User::where('referral_code','=',$referral_code)->count();
+        while ($otherUser > 0) {
+            $referral_code = substr(str_shuffle(bcrypt($user_id)),0,8);
+            $otherUser = User::where('referral_code','=',$referral_code)->count();
         }
 
         return User::create([
             'referral_id' => $referral->id,
-            'parent_id' => $parent_id,
             'username' => $data['username'],
+            'parent_id' => null,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'status' => 'member',
             'account_id' => 1,
-            'profile_image' => $profile_image,
+            'profile_image' => 'dummy.png',
             'package_id' => $data['package'],
             'active_status' => $active_status,
             'role_status' => $role_status,
@@ -134,8 +127,15 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function generateHashWithSalt($id) {
+        $intermediateSalt = md5(uniqid(rand(), true));
+        $salt = substr($intermediateSalt, 0, 8);
+        return hash("sha256", $id . $salt);
+    }
+
     public function showRegistrationForm()
     {
+
         $packages = Package::where('deleted',0)->get();
         return view('auth.register', compact(['packages', $packages]));
     }

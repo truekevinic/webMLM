@@ -26,7 +26,7 @@ class RegisterRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $user_count = User::where('username','=',$value)->where('active_status','=','active')->count();
+        $user_count = User::where('referral_code','=',$value)->where('active_status','=','active')->count();
 
         if($user_count==0) return false;
         return true;
