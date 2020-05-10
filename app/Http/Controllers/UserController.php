@@ -193,7 +193,7 @@ class UserController extends Controller
         $len = count($child);
         $field .= '<div class='.($len == 0 ? "hv-item-child" : "hv-item-parent").'>
                         <div class="person">
-                            <img src="https://pbs.twimg.com/profile_images/762654833455366144/QqQhkuK5.jpg" alt="" />
+                            <img src="'.asset("storage/images/$parent->profile_image").'" alt="" width="50" height="50" />
                             <p class="name">'. $parent->name .'<b>/ '. $parent->id .'</b></p>
                         </div>
                     </div>';
