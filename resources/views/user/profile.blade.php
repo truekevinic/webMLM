@@ -5,8 +5,14 @@
 <div class="container pb-3 pt-5 col-md-8 ">
     <div class="row  ">
         <h4 class="col my-auto text-center">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
+            {{$user->referral_code}}
             <div class="form-group input-group col-12">
-                <img src="{{asset('images/user.jpg')}}" class="rounded-circle  mx-auto" style="width:100px " alt="">
+
+                @if($user->profile_image != 'none')
+                    <img src="{{asset("storage/images/$user->profile_image")}}" class="rounded-circle" style="width:75px " alt="">
+                @else
+                    <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
+                @endif
 
             </div>
 
@@ -16,14 +22,13 @@
         <div class="col">
             <p>your username/referral :</p>
             <div class="form-group input-group">
-                
+
                 <div class="input-group-prepend">
                     <span class="input-group-text bg-dark text-light"><i class="fas fa-user"></i></span>
                 </div>
                 <div class="col-1">{{Auth::user()->username}}</div>
+
             </div>
-            
-            
         </div>
         <div class="col">
             <p> Your Email</p>
@@ -32,9 +37,9 @@
                     <span class="input-group-text bg-dark text-light"><i class="fas fa-envelope"></i></span>
                 </div>
                 <div class="col-1">{{Auth::user()->email}}</div>
-                
+
             </div>
-            
+
         </div>
         <div class="col"></div>
     </div>
@@ -53,7 +58,11 @@
                     @foreach($children as $c)
                     <tr>
                         <td>
+                            @if($c->profile_image != 'none')
+                            <img src="{{asset("storage/images/$c->profile_image")}}" class="rounded-circle" style="width:75px " alt="">
+                            @else
                             <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
+                            @endif
                         </td>
                         <td class="profile-member-list">
                             <li style="list-style: none;">{{$c->name }}</li>
@@ -67,5 +76,7 @@
     </div>
 </div>
 </div>
+
+<a href="/update-profile" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Update profile</a>
 
 @endsection

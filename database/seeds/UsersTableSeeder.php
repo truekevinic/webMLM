@@ -20,7 +20,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),
             'status' => 'admin',
-            'active_status' => 'active'
+            'active_status' => 'active',
+            'role_status' => 'admin',
+            'profile_image' => 'none',
+            'suspend_status' => 'unsuspend',
+            'referral_code'=> "amd1in"
         ]);
     }
 }

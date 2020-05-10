@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('status');
             $table->string('active_status');
+            $table->string('profile_image');
+            $table->string('referral_code');
+            $table->string('role_status'); //admin, approved, unapproved
+            $table->string('suspend_status'); //suspend, unsuspend
             $table->bigInteger('package_id')->nullable()->unsigned();
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade')->onUpdate('cascade');
             $table->rememberToken();

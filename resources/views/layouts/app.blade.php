@@ -54,6 +54,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="{{url('package')}}">Package</a>
+                            <a class="dropdown-item" href="{{url('manage-user')}}">User</a>
                         </div>
                     </li>
                 @endif
@@ -72,6 +73,10 @@
                         <a class="dropdown-item" href="{{url('wallet/pairing/'.Auth::user()->id)}}">Pairing</a>
                         <a class="dropdown-item" href="{{url('wallet/jackpot/'.Auth::user()->id)}}">Jackpot</a>
                     </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('advertisement/'.Auth::user()->id)}}">Advertisement</a>
                 </li>
             @endif
         </ul>

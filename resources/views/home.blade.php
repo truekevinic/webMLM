@@ -5,44 +5,36 @@
         <div class="container-fluid pt-5 backG">
             <div class="row-sm" style="display: flex;">
                 <div class="jumbotron col-sm-7 align-self-center my-auto">
-                   
+
                 </div>
             </div>
         </div>
     </header>
+    @if(count($advertisements) > 0)
+    <div class="container-fluid py-5 bg-secondary" >
+        <div id="carouselId" class="carousel slide bg-dark" data-ride="carousel" style="border-radius: 5em;width: 60%;margin:auto;">
 
-    {{--<div class="container-fluid py-5 bg-secondary" >--}}
-    {{--    <div id="carouselId" class="carousel slide bg-dark" data-ride="carousel" style="border-radius: 5em;width: 60%;margin:auto;">--}}
-    {{--        <ol class="carousel-indicators">--}}
-    {{--            <li data-target="#carouselId" data-slide-to="0" class="active"></li>--}}
-    {{--            <li data-target="#carouselId" data-slide-to="1"></li>--}}
-    {{--            <li data-target="#carouselId" data-slide-to="2"></li>--}}
-    {{--        </ol>--}}
-    {{--        <div class="carousel-inner" role="listbox">--}}
-    {{--            <div class="carousel-item active">--}}
-
-    {{--                <img class="d-block mx-auto" style="height: 400px"--}}
-    {{--                     src="/images/carousel/c89886e2b3cc276c4fd214eabc2b59b7.jpg" alt="First slide">--}}
-    {{--            </div>--}}
-    {{--            <div class="carousel-item">--}}
-    {{--                <img class="d-block mx-auto" style="height: 400px" src="/images/carousel/dirt-dog.jpg"--}}
-    {{--                     alt="Second slide">--}}
-    {{--            </div>--}}
-    {{--            <div class="carousel-item">--}}
-    {{--                <img class="d-block mx-auto" style="height: 400px"--}}
-    {{--                     src="/images/carousel/tumblr_ptxlmeiYsk1t7uvlqo1_1280.jpg" alt="Third slide">--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev" >--}}
-    {{--            <span class="carousel-control-prev-icon" aria-hidden="true" style="color: black;"></span>--}}
-    {{--            <span class="sr-only" style="color:black;">Previous</span>--}}
-    {{--        </a>--}}
-    {{--        <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next" >--}}
-    {{--            <span class="carousel-control-next-icon" aria-hidden="true" style="color: black;"></span>--}}
-    {{--            <span class="sr-only" style="color: black;">Next</span>--}}
-    {{--        </a>--}}
-    {{--    </div>--}}
-    {{--</div>--}}
+            <div class="carousel-inner" role="listbox">
+                @foreach($advertisements as $ad)
+                    <div class="carousel-item active">
+                        <img class="d-block mx-auto" style="height: 400px"
+                             src="{{asset("storage/images/$ad->image_source")}}" alt="First slide">
+                        <p>LINK: {{$ad->link}}</p>
+                        <p>DESCRIPTION: {{$ad->description}}</p>
+                    </div>
+                @endforeach
+            </div>
+            <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev" >
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="color: black;"></span>
+                <span class="sr-only" style="color:black;">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next" >
+                <span class="carousel-control-next-icon" aria-hidden="true" style="color: black;"></span>
+                <span class="sr-only" style="color: black;">Next</span>
+            </a>
+        </div>
+    </div>
+    @endif
 
     <div class="container py-5 text-center">
         <div class="row-sm">

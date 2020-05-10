@@ -17,6 +17,62 @@ use App\Summary;
 
 class UserController extends Controller
 {
+    public function viewUpdateProfile(){
+
+        $user = User::find(Auth::user()->id);
+        $packages = Package::where('deleted',0)->get();
+        return view('user.updateprofile',compact(['packages',$packages], ['user', $user]));
+    }
+
+    public function suspendControl($user_id){
+        $user = User::find($user_id);
+
+        if($user->suspend_status == 'suspend'){
+            $user->suspend_status = 'unsuspend';
+        }else{
+            $user->suspend_status = 'suspend';
+        }
+         $user->save();
+
+        return redirect()->back();
+    }
+
+    public function approveUser($user_id){
+        $user = User::find($user_id);
+
+        $user->role_status = 'approved';
+
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function updateProfile(Request $request){
+        $user = User::find(Auth::user()->id);
+
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->package_id = $request->package;
+
+        if($request->old_password != ''){
+            if($request->old_password == $user->password){
+                $user->password == $request->password;
+            }
+        }
+
+        if($request->hasFile('profile_image')){
+            $picture_name = uniqid().$request->profile_image->getClientOriginalName();
+            $request->profile_image->move(storage_path('app/public/images/'), $picture_name);
+
+            $user->profile_image = $picture_name;
+        }
+
+        $user->save();
+
+        return redirect()->to('/profile');
+    }
+
     public function checkStatusJackpot($user_id){
         $user = User::find($user_id);
         $wallet = Wallet::where('user_id','=',$user_id)->where('wallet_type_id','=',3)->first();
@@ -141,6 +197,13 @@ class UserController extends Controller
         }
 
         return back();
+    }
+
+    public function manageUser(){
+
+        $users = User::all();
+
+        return view('user.manageuser', compact(['users', $users]));
     }
 
     public function summary($id){
