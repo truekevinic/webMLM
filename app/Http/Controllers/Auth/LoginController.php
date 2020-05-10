@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,5 +38,29 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function login(Request $request)
+    {
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user != null) {
+            if ($user->role_status == 'approved') {
+                $this->validateLogin($request);
+
+                if (method_exists($this, 'hasTooManyLoginAttempts') &&
+                    $this->hasTooManyLoginAttempts($request)) {
+                    $this->fireLockoutEvent($request);
+
+                    return $this->sendLockoutResponse($request);
+                }
+
+                if ($this->attemptLogin($request)) {
+                    return $this->sendLoginResponse($request);
+                }
+            }
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
 
 }
