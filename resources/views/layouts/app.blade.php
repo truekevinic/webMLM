@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('navbar/css/style.css') }}">
     <script src="https://d3js.org/d3.v5.min.js"></script>
-{{--    <link href="{{ asset('css/cleanboot.css')}}" rel="stylesheet">--}}
+    <link href="{{ asset('css/cleanboot.css')}}" rel="stylesheet">
 </head>
 
 <body>

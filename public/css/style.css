@@ -29,3 +29,138 @@
 .goog-te-banner {
     display: none !important;
 }
+
+/* hierarchy */
+.hv-wrapper {
+    display: flex; }
+.hv-wrapper .hv-item {
+    display: flex;
+    flex-direction: column;
+    margin: auto; }
+.hv-wrapper .hv-item .hv-item-parent {
+    margin-bottom: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center; }
+.hv-wrapper .hv-item .hv-item-parent:after {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 25px;
+    bottom: 0;
+    left: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: translateY(100%); }
+.hv-wrapper .hv-item .hv-item-children {
+    display: flex;
+    justify-content: center; }
+.hv-wrapper .hv-item .hv-item-children .hv-item-child {
+    padding: 0 15px;
+    position: relative; }
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:before, .hv-wrapper .hv-item .hv-item-children .hv-item-child:not(:only-child):after {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    left: 0; }
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:before {
+    left: 50%;
+    top: 0;
+    transform: translateY(-100%);
+    width: 2px;
+    height: 25px; }
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:after {
+    top: -25px;
+    transform: translateY(-100%);
+    height: 2px;
+    width: 100%; }
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:first-child:after {
+    left: 50%;
+    width: 50%; }
+.hv-wrapper .hv-item .hv-item-children .hv-item-child:last-child:after {
+    width: calc(50% + 1px); }
+
+
+
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    padding: 0;
+    margin: 0; }
+
+section {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px 0;
+    position: relative; }
+section .github-badge {
+    position: absolute;
+    top: 0;
+    left: 0; }
+section h1 {
+    text-align: center;
+    margin-bottom: 70px; }
+section .hv-container {
+    flex-grow: 1;
+    overflow: auto;
+    justify-content: center; }
+
+.basic-style {
+    background-color: #333; }
+.basic-style > h1 {
+    color: #ac2222; }
+
+p.simple-card {
+    margin: 0;
+    background-color: #333;
+    color: #DE5454;
+    padding: 30px;
+    border-radius: 7px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.hv-item-parent p {
+    font-weight: bold;
+    color: #333; }
+
+.management-hierarchy {
+    background:#fff;
+    margin:0px;
+    padding-top:50px;
+    padding-bottom:100px;
+}
+.management-hierarchy > h1 {
+    color: #333; }
+.management-hierarchy .person {
+    text-align: center; }
+.management-hierarchy .person > img {
+    height: 50px;
+    border: 5px solid #333;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #333; }
+.management-hierarchy .person > p.name {
+    background-color: #000;
+    padding: 5px 5px;
+    border-radius: 15px 0px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #3BAA9D;
+    margin: 0;
+    position: relative; }
+.management-hierarchy .person > p.name b {
+    color: rgba(255, 255, 157, 0.5); }
+.management-hierarchy .person > p.name:before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background-color: #333;
+    left: 50%;
+    top: 0;
+    transform: translateY(-100%); }
+
+/* end */

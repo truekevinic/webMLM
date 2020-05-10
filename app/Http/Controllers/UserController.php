@@ -74,6 +74,8 @@ class UserController extends Controller
             $user->parent_7 = $parent_7;
             $user->parent_8 = $parent_8;
 
+            $user->active_status = 'active';
+
             $uController->jackpot($parent_1, $user_id);
             $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_1, $user_id);
 
@@ -166,6 +168,7 @@ class UserController extends Controller
     protected $childList = [];
     public function child($id){
         $user = User::find($id);
+//        dd($user->child_users);
         $children = User::where('parent_1', '=', $id)->get();
         $this->childList = [];
 
@@ -180,7 +183,36 @@ class UserController extends Controller
         $this->childFind($id);
 
 //        dd($this->childList);
-        return view('user.child', compact(['user', $user], ['children', $children], ['unregisterUser', $unregisterUser]))->with('childList', $this->childList);
+
+        return view('user.child', compact(['user', $user], ['children', $children], ['unregisterUser', $unregisterUser]))->with('childList', $this->childList)->with('user', $user)->with('html', $this->html($user, $children));
+    }
+
+    public function html ($parent, $child) {
+        $field = '<div class="hv-item">';
+
+        $len = count($child);
+        $field .= '<div class='.($len == 0 ? "hv-item-child" : "hv-item-parent").'>
+                        <div class="person">
+                            <img src="https://pbs.twimg.com/profile_images/762654833455366144/QqQhkuK5.jpg" alt="" />
+                            <p class="name">'. $parent->name .'<b>/ '. $parent->id .'</b></p>
+                        </div>
+                    </div>';
+
+
+        if ($len > 0) {
+            $field .= '<div class="hv-item-children">';
+
+            foreach ($child as $c) {
+                $field .= '<div class="hv-item-child">';
+                $field .= $this->html($c, $c->child_users);
+                $field .= '</div>';
+            }
+
+            $field .= '</div>';
+        }
+
+        $field .= '</div>';
+        return $field;
     }
 
     public function childFind($id){

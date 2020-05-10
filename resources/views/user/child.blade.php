@@ -49,34 +49,7 @@
                         @endforeach
                     </div>
                 </div>
-{{--                {{dd($childList)}}--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-header"><p>Member not Registered in jackpot</p></div>--}}
-{{--                    <div class="card-body">--}}
-{{--                        @foreach($unregistJackpotUser as $u)--}}
-{{--                            <div class="child-member">--}}
-{{--                                <a class="card-body" href="/child/{{$u->id}}">--}}
-{{--                                    {{$u->id.' '.$u->name}}--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-header"><p>My Jackpot Child</p></div>--}}
-{{--                    <div class="card-body">--}}
-{{--                        @foreach($childListY as $childListX)--}}
-{{--                            {{$key = array_search($childListX, $childListY)}}--}}
-{{--                            <div>--}}
-{{--                                @foreach($childListX as $c)--}}
-{{--                                    <div>ember-id--}}
-{{--                                        {{'ID '.$c->user_id.' Name '.$c->name.' Child Count '.$c->count}}--}}
-{{--                                    </div>--}}
-{{--                                @endforeach--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                @include('management');
                 <form action='add-member' method="post">
                     {{csrf_field()}}
                     MemberID

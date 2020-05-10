@@ -54,4 +54,12 @@ class User extends Authenticatable
     public function advertisements(){
         return $this->hasMany(Advertisement::class);
     }
+
+    public function parent_users() {
+        return $this->belongsTo(User::class,'parent_1');
+    }
+
+    public function child_users() {
+        return $this->hasMany(User::class,'parent_1');
+    }
 }
