@@ -14,10 +14,19 @@
 \Illuminate\Support\Facades\Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/update-profile', 'UserController@viewUpdateProfile');
+Route::post('/update', 'UserController@updateProfile');
+Route::post('/approve-user/{id}', 'UserController@approveUser');
+Route::post('/suspend-control/{id}', 'UserController@suspendControl');
 
 Route::get('/profile', 'UserController@profile')->name('profile');
 Route::get('/child/{id}', 'UserController@child')->name('child');
 Route::get('/summary/{id}', 'UserController@summary')->name('summary');
+
+Route::get('/advertisement/{id}', 'AdvertisementController@read')->name('advertisement');
+Route::post('/advertisement/create', 'AdvertisementController@create')->name('advertisement');
+Route::post('/advertisement/update/{id}', 'AdvertisementController@update')->name('advertisement');
+Route::post('/advertisement/delete/{id}', 'AdvertisementController@delete')->name('advertisement');
 
 Route::get('/wallet/direct/{id}', 'UserController@directView')->name('direct');
 Route::get('/wallet/jackpot/{id}', 'UserController@jackpotView')->name('jackpot');
@@ -38,4 +47,5 @@ Route::post('/child/add-member', 'UserController@addMember');
 
 Route::group(['middleware','admin'], function (){
     Route::get('/package', 'UserController@viewPackage');
+    Route::get('/manage-user', 'UserController@manageUser');
 });

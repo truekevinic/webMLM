@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['required', 'string', 'exists:users,username', new RegisterRule],
+            'referral' => ['required', 'string', 'exists:users,referral_code', new RegisterRule],
             'package' => ['required', 'exists:packages,id']
         ]);
     }
@@ -73,7 +73,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $referral = User::where('username', '=', $data['referral'])->first();
+        $referral = User::where('referral_code', '=', $data['referral_code'])->first();
         $user_id = User::get()->last()->id + 1;
         $uController = new UserController();
 
@@ -86,6 +86,22 @@ class RegisterController extends Controller
 
         $parent_id = null;
         $active_status = 'pending';
+        $role_status = 'unapproved';
+        $suspend_status = 'unsuspend';
+        $profile_image = 'none';
+
+        $referral_code = '';
+        $referral_concat = $data['username'] + $user_id;
+
+        while($referral_concat != ''){
+            for($i=0;$i<strlen($referral_concat);$i++){
+                $pos = rand(1, 2);
+                if(rand == 1){
+                    $referral_code += $referral_concat[$i];
+                    str_replace($referral_concat[$i], '');
+                }
+            }
+        }
 
         if ($childCount < 3) {
             $parent_id = $referral->id;
@@ -109,8 +125,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'status' => 'member',
             'account_id' => 1,
+            'profile_image' => $profile_image,
             'package_id' => $data['package'],
-            'active_status' => $active_status
+            'active_status' => $active_status,
+            'role_status' => $role_status,
+            'suspend_status' => $suspend_status,
+            'referral_code' => $referral_code,
         ]);
     }
 

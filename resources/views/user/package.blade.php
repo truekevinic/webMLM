@@ -9,7 +9,7 @@
                     <div class="card-header"><h3>Package</h3></div>
                     <div class="card-body mx-auto">
 
-                    
+
                     <table class="tablePackage table" style="margin: 1.5em;"  >
 {{--                        @foreach($packages as $p)--}}
 {{--                            <tr>--}}

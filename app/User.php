@@ -18,6 +18,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name', 'username', 'email', 'password', 'status', 'parent_id', 'referral_id', 'package_id', 'active_status'
+        , 'profile_image', 'role_status', 'suspend_status', 'referral_code'
     ];
 
     /**
@@ -48,5 +49,9 @@ class User extends Authenticatable
 
     public function summarys(){
         return $this->hasMany(Summary::class);
+    }
+
+    public function advertisements(){
+        return $this->hasMany(Advertisement::class);
     }
 }
