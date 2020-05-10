@@ -89,7 +89,7 @@
                             required>
                             <option value="">Select Package</option>
                             @foreach($packages as $p)
-                            <option value="{{$p->id}}">
+                            <option value="{{$p->id}}" {{old('package') == $p->id ? 'selected' : ''}}>
                                 {{'Get Max Withdraw $'.($p->max_withdraw*(double)$p->max_balance).' for $'.$p->package_cost}}
                             </option>
                             @endforeach
@@ -105,10 +105,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-dark text-light"><i class="fas fa-users"></i></span>
                         </div>
-                        <input id="referral" type="text" class="form-control @error('referral') is-invalid @enderror"
-                            name="referral" required placeholder="Referral User">
+                        <input id="referral_code" type="text" class="form-control @error('referral_code') is-invalid @enderror"
+                            name="referral_code" required placeholder="Referral User">
 
-                        @error('referral')
+                        @error('referral_code')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

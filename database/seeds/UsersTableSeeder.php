@@ -22,9 +22,9 @@ class UsersTableSeeder extends Seeder
             'status' => 'admin',
             'active_status' => 'active',
             'role_status' => 'admin',
-            'profile_image' => 'none',
+            'profile_image' => 'dummy.png',
             'suspend_status' => 'unsuspend',
-            'referral_code'=> "amd1in"
+            'referral_code'=> "amd1in0"
         ]);
     }
 }

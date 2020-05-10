@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Summary;
 
@@ -39,8 +40,34 @@ class UserController extends Controller
 
     public function approveUser($user_id){
         $user = User::find($user_id);
-
         $user->role_status = 'approved';
+
+        $referral_id = $user->referral_id;
+        $uController = new UserController();
+
+        $package = Package::find($user->package_id);
+        $max_balance = $package->max_balance;
+        $paid_balance = $package->package_cost;
+        $max_withdraw = $package->max_withdraw;
+
+        $childCount = User::where('parent_id','=',$referral_id)->count();
+
+        $parent_id = null;
+
+        if ($childCount < 3) {
+            $parent_id = $referral_id;
+            $active_status = 'active';
+
+            $user->parent_id = $parent_id;
+
+            $uController->jackpot($parent_id, $user_id);
+            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_id, $user_id);
+
+            //add new wallet
+            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
+            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
+            Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 3, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //jackpot
+        }
 
         $user->save();
 
