@@ -50,18 +50,32 @@ class UserController extends Controller
         $paid_balance = $package->package_cost;
         $max_withdraw = $package->max_withdraw;
 
-        $childCount = User::where('parent_id','=',$referral_id)->count();
+        $childCount = User::where('parent_1','=',$referral_id)->count();
 
-        $parent_id = null;
+        $parent_1 = null;
 
         if ($childCount < 3) {
-            $parent_id = $referral_id;
+            $parent_1 = $referral_id;
+            $parent_2 = (User::find($parent_1)->parent_1 == null ? 1 : User::find($parent_1)->parent_1);
+            $parent_3 = (User::find($parent_1)->parent_2 == null ? 1 : User::find($parent_1)->parent_2);
+            $parent_4 = (User::find($parent_1)->parent_3 == null ? 1 : User::find($parent_1)->parent_3);
+            $parent_5 = (User::find($parent_1)->parent_4 == null ? 1 : User::find($parent_1)->parent_4);
+            $parent_6 = (User::find($parent_1)->parent_5 == null ? 1 : User::find($parent_1)->parent_5);
+            $parent_7 = (User::find($parent_1)->parent_6 == null ? 1 : User::find($parent_1)->parent_6);
+            $parent_8 = (User::find($parent_1)->parent_7 == null ? 1 : User::find($parent_1)->parent_7);
             $active_status = 'active';
 
-            $user->parent_id = $parent_id;
+            $user->parent_1 = $parent_1;
+            $user->parent_2 = $parent_2;
+            $user->parent_3 = $parent_3;
+            $user->parent_4 = $parent_4;
+            $user->parent_5 = $parent_5;
+            $user->parent_6 = $parent_6;
+            $user->parent_7 = $parent_7;
+            $user->parent_8 = $parent_8;
 
-            $uController->jackpot($parent_id, $user_id);
-            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_id, $user_id);
+            $uController->jackpot($parent_1, $user_id);
+            $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_1, $user_id);
 
             //add new wallet
             Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
@@ -123,8 +137,6 @@ class UserController extends Controller
                     Summary::create(['user_id'=>$user->id, 'bonus_type_id'=>3, 'balance' => $account[$arr]->upgrade_cost, 'status'=>'decrement','text'=>$account[$arr]->upgrade_cost." for upgrade level to ".($arr+1)]);
 
                     $grand = $user['parent'.$wallet->level];
-
-                    $grand = UserController::grandSearch($user->parent_id, $wallet->level);
                     $grandUser = User::find($grand);
                     $grandWallet = Wallet::where('user_id', '=', $grand)->where('wallet_type_id', '=', 3)->first();
                     $grandWallet->balance += $account[$arr]->upgrade_cost;
@@ -140,18 +152,9 @@ class UserController extends Controller
         }
     }
 
-    public function grandSearch($id, $level){
-        if ($level == 1) return $id;
-
-        $parent = User::find($id);
-        $parent_wallet = Wallet::where('user_id','=',$id)->where('wallet_type_id','=',3)->first();
-        if ($parent_wallet->level == null) return 1;
-        return $this->grandSearch($parent->parent_id, $level-1);
-    }
-
     public function profile(){
         $user = Auth::user();
-        $children = User::where('parent_id', '=', $user->id)->get();
+        $children = User::where('parent_1', '=', $user->id)->get();
 
         $wallet = Wallet::where('user_id', '=', $user->id)->sum('balance');
 
@@ -163,13 +166,13 @@ class UserController extends Controller
     protected $childList = [];
     public function child($id){
         $user = User::find($id);
-        $children = User::where('parent_id', '=', $id)->get();
+        $children = User::where('parent_1', '=', $id)->get();
         $this->childList = [];
 
         $unregisterUser = User::where('referral_id','=',$id)->where('active_status','=','pending')->get();
 
         $content = [
-            'parent_id' => "",
+            'parent_1' => "",
             'user_id' => (string)$id,
             'user_name' => $user->username
         ];
@@ -181,7 +184,7 @@ class UserController extends Controller
     }
 
     public function childFind($id){
-        $childs = User::where('parent_id', '=', $id)->get();
+        $childs = User::where('parent_1', '=', $id)->get();
 
         $childCount = count($childs);
 
@@ -189,7 +192,7 @@ class UserController extends Controller
             $this->childFind($childs[$i]->id);
 ////            dd($childContent);
             $content = [
-                'parent_id' => (string)$id,
+                'parent_1' => (string)$id,
                 'user_id' => (string)$childs[$i]->id,
                 'user_name' => $childs[$i]->username
             ];
@@ -200,13 +203,13 @@ class UserController extends Controller
     public function addMember(Request $request){
         $request->validate([
             'member_id' => ['required', 'exists:users,id'],
-            'parent_id' => ['required', 'exists:wallets,user_id', new ChildMaxRule]
+            'parent_1' => ['required', 'exists:wallets,user_id', new ChildMaxRule]
         ]);
 
-        $parent_id = $request->parent_id;
+        $parent_1 = $request->parent_1;
 
         $user = User::find($request->member_id);
-        $user->parent_id = $parent_id;
+        $user->parent_1 = $parent_1;
         $user->active_status = 'active';
         $user->save();
 
@@ -216,15 +219,15 @@ class UserController extends Controller
         $max_balance = $package->max_balance;
         $max_withdraw = $package->max_withdraw;
 
-        $this->jackpot($parent_id, $user->id);
-        $this->checkStatusDirect((double)$package->package_cost*0.2, $parent_id, $user->id);
+        $this->jackpot($parent_1, $user->id);
+        $this->checkStatusDirect((double)$package->package_cost*0.2, $parent_1, $user->id);
 
         //add net wallet
         Wallet::create(['user_id' => $user->id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => 1]); //direct
         Wallet::create(['user_id' => $user->id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
         Wallet::create(['user_id' => $user->id, 'wallet_type_id' => 3, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //jackpot
 
-        $bonusJackpotParent = User::find($user->id)->parent_id;
+        $bonusJackpotParent = User::find($user->id)->parent_1;
         if ($bonusJackpotParent != null) {
             $uController = new UserController();
             $uController->checkStatusJackpot($user->id);
@@ -279,14 +282,14 @@ class UserController extends Controller
     }
 
     public function myGroupSales($id) {
-        $members = User::where('parent_id', '=', $id)->get();
+        $members = User::where('parent_1', '=', $id)->get();
         $group_sale_list = [];
         $total_group_sale = 0;
 
         $wallet = Wallet::where('wallet_type_id', '=', 2)->where('user_id','=',$id)->first();
 
         foreach($members as $m) {
-            $group_sale = (int)DB::table('users')->where('parent_id', '=', $m->id)->join('wallets', 'wallets.user_id', '=', 'users.id')->where('wallet_type_id', '=', 2)->sum('balance');
+            $group_sale = (int)DB::table('users')->where('parent_1', '=', $m->id)->join('wallets', 'wallets.user_id', '=', 'users.id')->where('wallet_type_id', '=', 2)->sum('balance');
 
             $group_content = [
                 'user_id' => $m->id,
@@ -312,10 +315,10 @@ class UserController extends Controller
         $wallet->balance += $deposit;
         $wallet->save();
 
-        $parent_id = $user->parent_id;
-        if ($parent_id != null) {
-            $parent = User::find($parent_id);
-            $grand = User::find($parent->parent_id);
+        $parent_1 = $user->parent_1;
+        if ($parent_1 != null) {
+            $parent = User::find($parent_1);
+            $grand = User::find($parent->parent_1);
             $groupSale = $this->myGroupSales($grand->id);
 
             $grand_wallet = Wallet::where('wallet_type_id', '=', 2)->where('user_id','=',$grand->id)->first();
@@ -405,8 +408,8 @@ class UserController extends Controller
                     $this->direct($balance, $referral_id, $user_id);
                 } else {
                     $this->direct($walletLeft, $referral_id, $user_id);
-                    $parent_id = User::find($referral_id)->parent_id;
-                    $this->checkStatusDirect($balance - $walletLeft, $parent_id, $user_id);
+                    $parent_1 = User::find($referral_id)->parent_1;
+                    $this->checkStatusDirect($balance - $walletLeft, $parent_1, $user_id);
                 }
             }
         }
@@ -414,7 +417,7 @@ class UserController extends Controller
 
     public function pairing($referral_id){
         $bonus = 0;
-        $child = User::where('parent_id', '=', $referral_id)->count() + 1;
+        $child = User::where('parent_1', '=', $referral_id)->count() + 1;
         if ($child == 20) $bonus = 500;
         else if ($child == 60) $bonus = 1000;
         else if ($child == 160) $bonus = 2000;

@@ -43,7 +43,7 @@
                         @foreach($childList as $c)
                             <div class="child-member">
                                 <a class="card-body" href="/child/{{$c['user_id']}}">
-                                    {{'Parent '.$c['parent_id'].' Child '.$c['user_id'].' '.$c['user_name']}}
+                                    {{'Parent '.$c['parent_1'].' Child '.$c['user_id'].' '.$c['user_name']}}
                                 </a>
                             </div>
                         @endforeach
@@ -87,7 +87,7 @@
                     </select>
                     <br>
                     ParentID
-                    <select name="parent_id" id="parent_id">
+                    <select name="parent_1" id="parent_1">
                         @foreach($childList as $c)
                             <option value="{{$c['user_id']}}">{{$c['user_id'].' '.$c['user_name']}}</option>
                         @endforeach
@@ -121,7 +121,7 @@
 
 {{--                    var dataStructure = d3.stratify()--}}
 {{--                        .id(function (d) {return d.user_id;})--}}
-{{--                        .parentId(function (d) {return d.parent_id;})--}}
+{{--                        .parentId(function (d) {return d.parent_1;})--}}
 {{--                        (childList);--}}
 
 {{--                    var treeStructure = d3.tree().size([500, 300]);--}}

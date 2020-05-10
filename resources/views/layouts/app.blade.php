@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('navbar/css/style.css') }}">
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link href="{{ asset('css/cleanboot.css')}}" rel="stylesheet">
+{{--    <link href="{{ asset('css/cleanboot.css')}}" rel="stylesheet">--}}
 </head>
 
 <body>
@@ -58,7 +58,7 @@
                 @endif
                 @else
                 @if(Auth::user()->active_status == 'active')
-                
+
                 <li>
                     <a href="{{ route ('home')}}">Home <span class="sr-only">(current)</span></a>
                 </li>
@@ -88,7 +88,7 @@
                         <li>
                             <a href="{{url('child/'.Auth::user()->id)}}">Members</a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <li>

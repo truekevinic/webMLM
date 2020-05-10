@@ -26,7 +26,7 @@ class ChildMaxRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        $child_count = User::where('parent_id', '=', $value)->count();
+        $child_count = User::where('parent_1', '=', $value)->count();
 
         if ($child_count >= 3) return false;
         return true;

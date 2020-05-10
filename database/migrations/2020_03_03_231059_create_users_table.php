@@ -15,7 +15,14 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('parent_id')->nullable();
+            $table->bigInteger('parent_1')->nullable();
+            $table->bigInteger('parent_2')->nullable();
+            $table->bigInteger('parent_3')->nullable();
+            $table->bigInteger('parent_4')->nullable();
+            $table->bigInteger('parent_5')->nullable();
+            $table->bigInteger('parent_6')->nullable();
+            $table->bigInteger('parent_7')->nullable();
+            $table->bigInteger('parent_8')->nullable();
             $table->bigInteger('referral_id')->nullable();
             $table->string('name')->unique();
             $table->string('username')->unique();
