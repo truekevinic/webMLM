@@ -22,6 +22,7 @@
                     {{$user->name}}
                     {{$user->email}}
                     {{$user->package_id}}
+                    {{$user->referral_code}}
                     <br>
                     <input type="submit" value="Approve" />
                     <br>
@@ -52,6 +53,7 @@
                     {{$user->name}}
                     {{$user->email}}
                     {{$user->package_id}}
+                    {{$user->referral_code}}
                     <br>
                     @if($user->suspend_status == 'suspend')
                     <input type="submit" value="unsuspend" />

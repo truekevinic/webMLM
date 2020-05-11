@@ -79,6 +79,9 @@
                             <li>
                                 <a href="{{url('manage-user')}}">User</a>
                             </li>
+                            <li>
+                                <a href="{{url('manage-pin')}}">Pin</a>
+                            </li>
                         </ul>
                     </li>
                     @endif

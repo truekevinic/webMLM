@@ -47,6 +47,8 @@ Route::post('/wallet/pairing/add-deposit', 'UserController@addDeposit');
 
 Route::post('/add-member', 'UserController@addMember');
 
+Route::get('/manage-pin', 'UserController@managePin');
+
 Route::group(['middleware','admin'], function (){
     Route::get('/package', 'UserController@viewPackage');
     Route::get('/manage-user', 'UserController@manageUser');

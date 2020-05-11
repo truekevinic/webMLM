@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Package;
 use App\Pairing;
+use App\Pin;
 use App\Rules\ChildMaxRule;
 use App\User;
 use App\Wallet;
@@ -152,6 +153,11 @@ class UserController extends Controller
                 }
             }
         }
+    }
+
+    public function managePin(){
+        $pin = Pin::where('status','=','active')->get();
+        return view('user.pin')->with('pin', $pin);
     }
 
     public function profile(){
