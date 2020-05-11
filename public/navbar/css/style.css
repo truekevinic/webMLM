@@ -8207,14 +8207,16 @@ h1, h2, h3, h4, h5,
   width: 100%; }
 
 #sidebar {
+  z-index: 999;
   min-width: 250px;
   max-width: 250px;
+  height: 100%;
   background: #007bff;
   color: #fff;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  position: relative; }
+  position: fixed; }
   #sidebar .h6 {
     color: #fff; }
   #sidebar.active {
