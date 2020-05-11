@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Account;
 use App\Http\Controllers\UserController;
 use App\Package;
+use App\Pin;
+use App\Rules\PinRules;
 use App\Rules\RegisterRule;
 use App\User;
 use App\Summary;
@@ -63,7 +65,8 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'referral_code' => ['required', 'string', 'exists:users', new RegisterRule],
-            'package' => ['required', 'exists:packages,id']
+            'package' => ['required', 'exists:packages,id'],
+            'pin' => ['required', 'string', new PinRules],
         ]);
     }
 
@@ -88,9 +91,11 @@ class RegisterController extends Controller
     {
         $referral = User::where('referral_code', '=', $data['referral_code'])->first();
         $user_id = User::get()->last()->id + 1;
-        $uController = new UserController();
 
-        $package = Package::find($data['package']);
+        $pin = Pin::where('code','=',$data['pin'])->first();
+        $pin->status = 'used';
+        $pin->used_id = $user_id;
+        $pin->save();
 
         $active_status = 'pending';
         $role_status = 'unapproved';

@@ -87,7 +87,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->back();
+        return redirect('/manage-user');
     }
 
     public function referralForm($referral_code) {
@@ -138,7 +138,7 @@ class UserController extends Controller
 
                     Summary::create(['user_id'=>$user->id, 'bonus_type_id'=>3, 'balance' => $account[$arr]->upgrade_cost, 'status'=>'decrement','text'=>$account[$arr]->upgrade_cost." for upgrade level to ".($arr+1)]);
 
-                    $grand = $user['parent'.$wallet->level];
+                    $grand = $user['parent_'.$wallet->level];
                     $grandUser = User::find($grand);
                     $grandWallet = Wallet::where('user_id', '=', $grand)->where('wallet_type_id', '=', 3)->first();
                     $grandWallet->balance += $account[$arr]->upgrade_cost;

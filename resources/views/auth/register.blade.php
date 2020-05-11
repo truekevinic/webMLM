@@ -114,6 +114,19 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-dark text-light"><i class="fas fa-users"></i></span>
+                        </div>
+                        <input id="pin" type="text" class="form-control @error('pin') is-invalid @enderror"
+                               name="pin" required placeholder="Pin" value="{{old('pin')}}">
+
+                        @error('pin')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <button type="submit" class="btn btn-dark">
                         {{ __('Register') }}
                     </button>

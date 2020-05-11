@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WalletsTableSeeder::class);
         $this->call(BonusTypesSeeder::class);
         $this->call(PairingsTableSeeder::class);
+        $this->call(BankAccountTableSeeder::class);
+        $this->call(PinsTableSeeder::class);
     }
 }

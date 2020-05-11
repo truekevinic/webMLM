@@ -46,6 +46,7 @@
                                 <input type="number" min="0" name="wallet3">
                             </div>
                         </div>
+                        <input type="submit" value="Withdraw">
                     </form>
                     @foreach($errors->all() as $e)
                     <div>$e</div>
