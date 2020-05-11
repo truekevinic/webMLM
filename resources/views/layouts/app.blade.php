@@ -98,7 +98,9 @@
                             <li>
                                 <a href="{{url('child/'.Auth::user()->id)}}">Members</a>
                             </li>
-
+                            <li>
+                                <a href="{{url('buy-pin')}}">Buy Pin</a>
+                            </li>
                         </ul>
                     </li>
                     <li>

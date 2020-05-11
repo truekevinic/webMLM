@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BankAccountTableSeeder::class);
         $this->call(PinsTableSeeder::class);
         $this->call(PointTableSeeder::class);
+        $this->call(PriceListTableSeeder::class);
     }
 }

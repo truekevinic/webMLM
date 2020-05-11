@@ -39,16 +39,11 @@
     <div class="container py-5 text-center">
         <div class="row-sm">
             <div class="">
-                <p class="text-dark">Dashboard</p>
+                <p class="text-dark">Donasi yang telah terkumpul</p>
             </div>
 
             <div class="">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                <p class="text-dark"> You are logged in! </p>
+                <p class="text-dark">${{$donation}}</p>
             </div>
         </div>
     </div>

@@ -6,6 +6,8 @@ use App\Account;
 use App\Package;
 use App\Pairing;
 use App\Pin;
+use App\PriceList;
+use App\RegistrationPoint;
 use App\Rules\ChildMaxRule;
 use App\User;
 use App\Wallet;
@@ -161,8 +163,30 @@ class UserController extends Controller
     }
 
     public function managePin(){
-        $pin = Pin::where('status','=','active')->get();
-        return view('user.pin')->with('pin', $pin);
+        $pin = Pin::where('status','=','active')->paginate(20);
+        $pin_pending = Pin::where('status','=','pending')->paginate(10);
+        return view('user.pin')->with('pin', $pin)->with('pin_pending', $pin_pending);
+    }
+
+    public function approvedPin($id) {
+        $pin = Pin::find($id);
+        $pin->status = 'active';
+        $pin->save();
+
+        return back();
+    }
+
+    public function rejectPin($id) {
+        $pin = Pin::find($id);
+        $pin->status = 'reject';
+        $pin->save();
+
+        $pinPrice = PriceList::where('name','=','pin')->first()->price;
+        $registration = RegistrationPoint::where('user_id','=',$pin->referral_id)->first();
+        $registration->balance += $pinPrice;
+        $registration->save();
+
+        return back();
     }
 
     public function profile(){
@@ -300,6 +324,23 @@ class UserController extends Controller
         return back();
     }
 
+    public function unsuspendUser($user_id) {
+        $user = User::find($user_id);
+        $user->suspend_status = 'unsuspend';
+        $user->save();
+
+        $package = Package::find($user->package_id);
+        $max_balance = $package->max_balance;
+        $max_withdraw = $package->max_withdraw;
+
+        $wallet = Wallet::where('user_id','=',$user_id)->where('wallet_type_id','=',1)->first();
+        $wallet->max_balance = $max_balance;
+        $wallet->max_withdraw = (int)((double)$max_balance*$max_withdraw);
+        $wallet->save();
+
+        return redirect('/manage-user');
+    }
+
     public function manageUser(){
 
         $users = User::all();
@@ -313,13 +354,12 @@ class UserController extends Controller
     }
 
     public function upgradePackage(Request $request){
-        $user = Auth::user();
-        $newPackage = Package::find($request->upgrade_package);
+        $user = User::find(Auth::user()->id);
+        $user->package_id = (int)$request->upgrade_package;
+        $user->suspend_status = 'pending';
+        $user->save();
 
-        $walletDirect = Wallet::where('user_id','=',$user->id)->where('wallet_type_id','=',1)->first();
-        $walletDirect->balance -= $newPackage->package_cost;
-//        $walletDirect->max_balance =
-//        $walletDirect->max_withdraw =
+        return back();
     }
 
     public function addDeposit(Request $request){

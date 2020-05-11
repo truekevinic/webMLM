@@ -46,7 +46,7 @@ class WalletController extends Controller
 
         $decrement = ($balance <= $max_withdraw ? $balance : $max_withdraw);
 
-        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package]))->with('typeStr', 'Direct')->with('balance', $decrement)->with('type', 1);
+        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package]))->with('typeStr', 'Direct')->with('balance', $decrement)->with('type', 1)->with('user', Auth::user());
     }
 
     public function pairingView($id){
@@ -116,6 +116,14 @@ class WalletController extends Controller
             $mcdPoint = McdPoint::where('user_id', Auth::user()->id)->first();
             $mcdPoint->balance += $mcd;
             $mcdPoint->save();
+        }
+
+        if ($type == 1) {
+            if ($wallet->max_withdraw <= 0) {
+                $user = User::find(Auth::user()->id);
+                $user->suspend_status = 'suspend';
+                $user->save();
+            }
         }
 
         Summary::create(['user_id'=>Auth::user()->id, 'bonus_type_id'=>(int)$type, 'balance' => $request->wallet, 'status'=>'decrement','text'=>"$request->wallet after withdraw"]);

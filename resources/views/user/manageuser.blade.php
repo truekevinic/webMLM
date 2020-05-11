@@ -35,6 +35,36 @@
     <div class="my-5">
         <div class="card">
             <div class="card-header">
+                <h3>List of pending suspend users</h3>
+            </div>
+            <div class="card-body">
+                @foreach($users as $user)
+                    @if($user->name != 'admin' && $user->suspend_status == 'pending')
+                        <form action="/unsuspend-user/{{$user->id}}" method="post">
+                            {{csrf_field()}}
+                            @if($user->profile_image != 'none')
+                                <img src="{{asset("storage/images/$user->profile_image")}}" class="rounded-circle"
+                                     style="width:75px " alt="">
+                            @else
+                                <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
+                            @endif
+                            <br>
+                            {{$user->name}}
+                            {{$user->email}}
+                            {{$user->package_id}}
+                            {{$user->referral_code}}
+                            <br>
+                            <input type="submit" value="Unsuspend" />
+                            <br>
+                        </form>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="my-5">
+        <div class="card">
+            <div class="card-header">
                 <h3>List of users</h3>
             </div>
             <div class="card-body">

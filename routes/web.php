@@ -50,6 +50,12 @@ Route::post('/wallet/pairing/add-deposit', 'UserController@addDeposit');
 Route::post('/add-member', 'UserController@addMember');
 
 Route::get('/manage-pin', 'UserController@managePin');
+Route::post('/approved-pin/{id}', 'UserController@approvedPin');
+Route::post('/reject-pin/{id}', 'UserController@rejectPin');
+
+Route::get('/buy-pin', 'PinController@buyPin');
+Route::post('/buy-pin-post', 'PinController@buyPinPost');
+Route::post('/unsuspend-user/{id}', 'UserController@unsuspendUser');
 
 Route::group(['middleware','admin'], function (){
     Route::get('/package', 'UserController@viewPackage');

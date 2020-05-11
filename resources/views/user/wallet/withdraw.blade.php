@@ -66,6 +66,7 @@
                         @endforeach
                     </div>
                 </div>
+                @if(Auth::user()->suspend_status == 'unsuspend' || ($type != 1 && Auth::user()->suspend_status != 'unsuspend'))
                 <div class="my-5">
                     <div class="card">
                         <div class="card-header">
@@ -100,9 +101,10 @@
                         @endforeach
                     </div>
                 </div>
+                @endif
                 @if($type == 1)
                 <div class="my-5">
-                    @if(Auth::user()->name != 'admin')
+                    @if(Auth::user()->name != 'admin' && Auth::user()->suspend_status == 'suspend')
                         <div class="card">
                             <div class="card-header">
                                 <h3>Upgrade Package</h3>
