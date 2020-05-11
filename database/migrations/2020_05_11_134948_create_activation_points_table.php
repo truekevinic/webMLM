@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegistrationPointsTable extends Migration
+class CreateActivationPointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRegistrationPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('registration_points', function (Blueprint $table) {
+        Schema::create('activation_points', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->bigInteger('balance');
@@ -28,6 +28,6 @@ class CreateRegistrationPointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registration_points');
+        Schema::dropIfExists('activation_points');
     }
 }

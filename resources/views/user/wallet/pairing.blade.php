@@ -63,8 +63,9 @@
                         {{csrf_field()}}
                         <div class="card-body">
                             <div class="child-member">
-                                <input type="number" min="0" name="wallet2">
+                                <input type="number" min="0" name="wallet" max="{{$bonus->balance}}">
                             </div>
+                            <input type="submit" value="Withdraw">
                         </div>
                     </form>
                     @foreach($errors->all() as $e)

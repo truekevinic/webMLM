@@ -2,21 +2,23 @@
 
 namespace App\Rules;
 
-use App\Pin;
-use App\User;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Http\Request;
 
-class PinRules implements Rule
+class PointRule implements Rule
 {
     /**
      * Create a new rule instance.
      *
-     * @return void
+     * @param $sum
      */
-    public function __construct()
+    public function __construct($sum)
     {
-        //
+        $this->sum = $sum;
     }
+
+    public $sum;
+
 
     /**
      * Determine if the validation rule passes.
@@ -27,10 +29,9 @@ class PinRules implements Rule
      */
     public function passes($attribute, $value)
     {
-        $child_count = Pin::where('code', '=', $value)->where('status','=','active')->count();
-
-        if ($child_count <= 0) return false;
-        return true;
+        $val = (int)(((int)$value)*0.8);
+        if ($this->sum != $val) return false;
+        else return true;
     }
 
     /**
@@ -40,6 +41,6 @@ class PinRules implements Rule
      */
     public function message()
     {
-        return 'The selected pin is invalid';
+        return 'Point selected must be equal to withdraw gain';
     }
 }

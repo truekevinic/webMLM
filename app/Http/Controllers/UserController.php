@@ -80,6 +80,11 @@ class UserController extends Controller
             $uController->jackpot($parent_1, $user_id);
             $uController->checkStatusDirect((double)$paid_balance*0.2, $parent_1, $user_id);
 
+            DB::table('bank_points')->insert(['user_id' => $user_id,'balance' => 0]);
+            DB::table('registration_points')->insert(['user_id' => $user_id,'balance' => 0]);
+            DB::table('activation_points')->insert(['user_id' => $user_id,'balance' => 0]);
+            DB::table('mcd_points')->insert(['user_id' => $user_id,'balance' => 0]);
+
             //add new wallet
             Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => null]); //direct
             Wallet::create(['user_id' => $user_id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
@@ -276,6 +281,11 @@ class UserController extends Controller
         $this->checkStatusDirect((double)$package->package_cost*0.2, (int)$parent_1, (int)$user->id);
 //        return 'a';
 
+        DB::table('bank_points')->insert(['user_id' => $user->id,'balance' => 0]);
+        DB::table('registration_points')->insert(['user_id' => $user->id,'balance' => 0]);
+        DB::table('activation_points')->insert(['user_id' => $user->id,'balance' => 0]);
+        DB::table('mcd_points')->insert(['user_id' => $user->id,'balance' => 0]);
+
         //add net wallet
         Wallet::create(['user_id' => $user->id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => 1]); //direct
         Wallet::create(['user_id' => $user->id, 'wallet_type_id' => 2, 'balance' => 0, 'max_balance' => 0, 'max_withdraw' => 0, 'level' => 1]); //pairing
@@ -302,14 +312,6 @@ class UserController extends Controller
         return view('user.summary', compact(['summaries', $summaries]));
     }
 
-    public function directView($id){
-        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 1)->first();
-        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 1)->get();
-        $packages = Package::where('deleted',0)->get();
-        $user_package = Auth::user()->package_id;
-        return view('user.wallet.direct', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package]));
-    }
-
     public function upgradePackage(Request $request){
         $user = Auth::user();
         $newPackage = Package::find($request->upgrade_package);
@@ -318,46 +320,6 @@ class UserController extends Controller
         $walletDirect->balance -= $newPackage->package_cost;
 //        $walletDirect->max_balance =
 //        $walletDirect->max_withdraw =
-    }
-
-    public function jackpotView(int $id){
-        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
-        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
-        return view('user.wallet.jackpot', compact(['bonus', $bonus], ['summaries', $summaries]));
-    }
-
-    public function pairingView($id){
-        $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 2)->first();
-        $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 2)->get();
-
-        $groupSale = $this->myGroupSales($id);
-
-        return view('user.wallet.pairing', compact(['bonus', $bonus], ['summaries', $summaries]))->with('group_sale_list', $groupSale['group_sale_list'])->with('total_group_sale', $groupSale['total_group_sale']);
-    }
-
-    public function myGroupSales($id) {
-        $members = User::where('parent_1', '=', $id)->get();
-        $group_sale_list = [];
-        $total_group_sale = 0;
-
-        $wallet = Wallet::where('wallet_type_id', '=', 2)->where('user_id','=',$id)->first();
-
-        foreach($members as $m) {
-            $group_sale = (int)DB::table('users')->where('parent_1', '=', $m->id)->join('wallets', 'wallets.user_id', '=', 'users.id')->where('wallet_type_id', '=', 2)->sum('balance');
-
-            $group_content = [
-                'user_id' => $m->id,
-                'user_name' => $m->name,
-                'group_sale' => $group_sale
-            ];
-
-            $group_deposit = Pairing::find($wallet->level)->group_deposit;
-
-            array_push($group_sale_list, $group_content);
-            $total_group_sale += ($group_sale >= $group_deposit ? $group_deposit : $group_sale);
-        }
-
-        return ['group_sale_list' => $group_sale_list, 'total_group_sale' => $total_group_sale];
     }
 
     public function addDeposit(Request $request){
@@ -372,21 +334,23 @@ class UserController extends Controller
         $parent_1 = $user->parent_1;
         if ($parent_1 != null) {
             $parent = User::find($parent_1);
-            $grand = User::find($parent->parent_1);
-            $groupSale = $this->myGroupSales($grand->id);
+            if ($parent->parent_1 != null) {
+                $grand = User::find($parent->parent_1);
+                $groupSale = $this->myGroupSales($grand->id);
 
-            $grand_wallet = Wallet::where('wallet_type_id', '=', 2)->where('user_id','=',$grand->id)->first();
-            $grand_pairing = Pairing::find($grand_wallet->level);
+                $grand_wallet = Wallet::where('wallet_type_id', '=', 2)->where('user_id','=',$grand->id)->first();
+                $grand_pairing = Pairing::find($grand_wallet->level);
 
-            if ($grand_pairing != null) {
-                $grand_group_deposit = $grand_pairing->group_deposit;
-                $grand_prize = $grand_pairing->prize;
+                if ($grand_pairing != null) {
+                    $grand_group_deposit = $grand_pairing->group_deposit;
+                    $grand_prize = $grand_pairing->prize;
 
-                if ($groupSale['total_group_sale'] >= $grand_group_deposit * 3) {
-                    $level_up = $grand_wallet->level + 1;
-                    $grand_wallet->level += 1;
-                    $grand_wallet->save();
-                    Summary::create(['user_id'=>$grand->id, 'bonus_type_id'=>2, 'balance' => 0, 'status'=>'increment','text'=>"Congratulation you have got $$grand_prize from your group deposit and now you are in level $level_up"]);
+                    if ($groupSale['total_group_sale'] >= $grand_group_deposit * 3) {
+                        $level_up = $grand_wallet->level + 1;
+                        $grand_wallet->level += 1;
+                        $grand_wallet->save();
+                        Summary::create(['user_id'=>$grand->id, 'bonus_type_id'=>2, 'balance' => 0, 'status'=>'increment','text'=>"Congratulation you have got $$grand_prize from your group deposit and now you are in level $level_up"]);
+                    }
                 }
             }
         }
@@ -401,23 +365,6 @@ class UserController extends Controller
     }
 
     public function withdraw(Request $request){
-//        $wallet1 = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 1)->first();
-//        $max_withdraw = $wallet1->max_withdraw;
-//        if ($max_withdraw != null) {
-//            $request->validate([
-//                'wallet1' => "numeric|max:$max_withdraw"
-//            ]);
-//        }
-//
-//        if ($request->wallet1 > 0) {
-//            $wallet1->balance -= $request->wallet1;
-//            $wallet1->save();
-//
-//            $wallet1->max_withdraw -= $request->wallet1;
-//
-//            Summary::create(['user_id'=>$request->id, 'bonus_type_id'=>1, 'balance' => $request->wallet1, 'status'=>'decrement','text'=>"$request->wallet1 after withdraw"]);
-//        }
-
         if ($request->wallet2 > 0) {
             $wallets = Wallet::where('user_id', '=', $request->id)->where('wallet_type_id', '=', 2)->first();
             $wallets->balance -= $request->wallet2;

@@ -30,16 +30,18 @@ Route::post('/advertisement/create', 'AdvertisementController@create')->name('ad
 Route::post('/advertisement/update/{id}', 'AdvertisementController@update')->name('advertisement');
 Route::post('/advertisement/delete/{id}', 'AdvertisementController@delete')->name('advertisement');
 
-Route::get('/wallet/direct/{id}', 'UserController@directView')->name('direct');
-Route::get('/wallet/jackpot/{id}', 'UserController@jackpotView')->name('jackpot');
-Route::get('/wallet/pairing/{id}', 'UserController@pairingView')->name('pairing');
+Route::get('/wallet/direct/{id}', 'WalletController@directView')->name('direct');
+Route::get('/wallet/jackpot/{id}', 'WalletController@jackpotView')->name('jackpot');
+Route::get('/wallet/pairing/{id}', 'WalletController@pairingView')->name('pairing');
 
 //Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView')->name('withdraw_view');
 //Route::post('/wallet/withdraw', 'UserController@withdraw')->name('withdraw');
 
-Route::post('/wallet/withdraw/direct', 'WalletController@directWithdraw');
-Route::post('/wallet/withdraw/pairing', 'WalletController@pairingWithdraw');
-Route::post('/wallet/withdraw/jackpot', 'WalletController@jackpotWithdraw');
+//Route::post('/wallet/withdraw/direct', 'WalletController@directWithdraw');
+//Route::post('/wallet/withdraw/pairing', 'WalletController@pairingWithdraw');
+//Route::post('/wallet/withdraw/jackpot', 'WalletController@jackpotWithdraw');
+
+Route::post('/wallet/withdraw/{type}', 'WalletController@withdraw');
 
 Route::post('/wallet/upgrade-package', 'UserController@upgradePackage');
 

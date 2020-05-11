@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PairingsTableSeeder::class);
         $this->call(BankAccountTableSeeder::class);
         $this->call(PinsTableSeeder::class);
+        $this->call(PointTableSeeder::class);
     }
 }

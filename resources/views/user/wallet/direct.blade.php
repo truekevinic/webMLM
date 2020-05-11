@@ -71,8 +71,9 @@
                         {{csrf_field()}}
                         <div class="card-body">
                             <div class="child-member">
-                                <input type="number" min="0" name="wallet1">
+                                <input type="number" min="0" name="wallet" max="{{$max_decrement}}">
                             </div>
+                            <input type="submit" value="Withdraw">
                         </div>
                     </form>
                     @foreach($errors->all() as $e)
