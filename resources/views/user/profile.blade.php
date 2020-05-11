@@ -4,18 +4,19 @@
 
 <div class="container pb-3 pt-5">
     <div class="row  ">
-        <h4 class="col my-auto text-center">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
-
-        <div class="form-group input-group ">
-
+        
+     
+        <div class=" col-1 offset-3  text-center  ">
+            
             @if($user->profile_image != 'none')
-            <img src="{{asset("storage/images/$user->profile_image")}}" class="rounded-circle" style="width:75px "
-                alt="">
+            <img src="{{asset('images/user.jpg')}}" class="rounded-circle " style="width:75px " alt="">
+            
             @else
-            <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
+            <img src="{{asset("storage/images/$user->profile_image")}}" class="rounded-circle" style="width:75px "alt="">
             @endif
-
+            
         </div>
+        <h4 class="col-4 my-auto ">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
 
     </div>
     <div class="row mx-auto col-8">
