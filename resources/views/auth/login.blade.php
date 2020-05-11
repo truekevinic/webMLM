@@ -45,18 +45,18 @@
                         <div class="form-group row ">
                             <div class="mx-auto">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="align-middle mx-auto">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn-primary btn-lg">
                                     {{ __('Login') }}
                                 </button>
 

@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container pb-3 pt-5 col-md-8 ">
+<div class="container pb-3 pt-5">
     <div class="row  ">
         <h4 class="col my-auto text-center">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
-            {{$user->referral_code}}
+            
             <div class="form-group input-group col-12">
 
                 @if($user->profile_image != 'none')
@@ -17,32 +17,42 @@
             </div>
 
     </div>
-    <div class="row mx-auto">
-        <div class="col"></div>
+    <div class="row mx-auto col-8">
         <div class="col">
-            <p>your username/referral :</p>
-            <div class="form-group input-group">
-
-                <div class="input-group-prepend">
-                    <span class="input-group-text bg-dark text-light"><i class="fas fa-user"></i></span>
+            <div class="card">
+                <div class="card-header">
+                    <p>Your Username</p>
                 </div>
-                <div class="col-1">{{Auth::user()->username}}</div>
-
+                <div class="card-body">
+                    <p>{{Auth::user()->username}}</p>
+                </div>
             </div>
         </div>
         <div class="col">
-            <p> Your Email</p>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text bg-dark text-light"><i class="fas fa-envelope"></i></span>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p> Your Email</p>
+                    </div>
+                    <div class="card-body">
+                        <p>{{Auth::user()->email}}</p>
+                    </div>
                 </div>
-                <div class="col-1">{{Auth::user()->email}}</div>
-
-            </div>
-
+           
         </div>
-        <div class="col"></div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <p> Your Refferal Code</p>
+                </div>
+                <div class="card-body">
+                    <p>{{$user->referral_code}}</p>
+                </div>
+            </div>
+        </div>
+        
     </div>
+    <div class="row "><a href="/update-profile" class=" btn-primary btn-lg mx-auto " role="button" aria-pressed="true">Update profile</a></div>
 </div>
 
 <div class="row justify-content-center">
@@ -77,6 +87,6 @@
 </div>
 </div>
 
-<a href="/update-profile" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Update profile</a>
+
 
 @endsection

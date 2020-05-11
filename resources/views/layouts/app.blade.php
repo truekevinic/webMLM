@@ -58,7 +58,7 @@
                 @endif
                 @else
                 @if(Auth::user()->active_status == 'active')
-
+                
                 <li>
                     <a href="{{ route ('home')}}">Home <span class="sr-only">(current)</span></a>
                 </li>
@@ -88,7 +88,7 @@
                         <li>
                             <a href="{{url('child/'.Auth::user()->id)}}">Members</a>
                         </li>
-
+                        
                     </ul>
                 </li>
                 <li>

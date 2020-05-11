@@ -4,24 +4,26 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form class="card" method="post" action="{{route('withdraw')}}">
-                    @csrf
-                    <input type="hidden" name="id" value="{{$id}}">
-                    <div class="card-header"><p>Your Wallet</p></div>
-                    <div class="card-body">
-                        @foreach($wallets as $w)
+                <div class="my-5">
+                    <form class="card" method="post" action="{{route('withdraw')}}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$id}}">
+                        <div class="card-header"><h3>Your Wallet</h3></div>
+                        <div class="card-body">
+                            @foreach($wallets as $w)
                             <div class="child-member">
                                 <div class="card-body">
                                     <input type="number" class="wallet" name="wallet{{$w->wallet_type_id}}" id="wallet{{$w->wallet_type_id}}" max="{{$w->balance}}" min="0" value="0">
                                     {{'Bonus '.$w->walletTypes->type_name.'    '.$w->balance}}
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                    <div id="total">Total 0</div>
-                    <input type="submit" value="Withdraw">
-                </form>
-                @foreach($errors->all() as $e)
+                            @endforeach
+                        </div>
+                        <div id="total">Total 0</div>
+                        <input type="submit" value="Withdraw">
+                    </form>
+                </div>
+                    @foreach($errors->all() as $e)
                     <div>{{$e}}</div>
                 @endforeach
             </div>
