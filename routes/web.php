@@ -45,7 +45,7 @@ Route::post('/wallet/upgrade-package', 'UserController@upgradePackage');
 
 Route::post('/wallet/pairing/add-deposit', 'UserController@addDeposit');
 
-Route::post('/child/add-member', 'UserController@addMember');
+Route::post('/add-member', 'UserController@addMember');
 
 Route::group(['middleware','admin'], function (){
     Route::get('/package', 'UserController@viewPackage');

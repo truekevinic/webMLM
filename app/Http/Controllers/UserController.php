@@ -192,7 +192,7 @@ class UserController extends Controller
 
         $len = count($child);
         $field .= '<div class='.($len == 0 ? "hv-item-child" : "hv-item-parent").'>
-                        <div class="person">
+                        <div class="person '.strval($parent->id).'">
                             <img src="'.asset("storage/images/$parent->profile_image").'" alt="" width="50" height="50" />
                             <p class="name">'. $parent->name .'<b>/ '. $parent->id .'</b></p>
                         </div>
@@ -239,9 +239,24 @@ class UserController extends Controller
         ]);
 
         $parent_1 = $request->parent_1;
+        $parent_2 = (User::find($parent_1)->parent_1 == null ? 1 : User::find($parent_1)->parent_1);
+        $parent_3 = (User::find($parent_1)->parent_2 == null ? 1 : User::find($parent_1)->parent_2);
+        $parent_4 = (User::find($parent_1)->parent_3 == null ? 1 : User::find($parent_1)->parent_3);
+        $parent_5 = (User::find($parent_1)->parent_4 == null ? 1 : User::find($parent_1)->parent_4);
+        $parent_6 = (User::find($parent_1)->parent_5 == null ? 1 : User::find($parent_1)->parent_5);
+        $parent_7 = (User::find($parent_1)->parent_6 == null ? 1 : User::find($parent_1)->parent_6);
+        $parent_8 = (User::find($parent_1)->parent_7 == null ? 1 : User::find($parent_1)->parent_7);
+        $active_status = 'active';
 
         $user = User::find($request->member_id);
         $user->parent_1 = $parent_1;
+        $user->parent_2 = $parent_2;
+        $user->parent_3 = $parent_3;
+        $user->parent_4 = $parent_4;
+        $user->parent_5 = $parent_5;
+        $user->parent_6 = $parent_6;
+        $user->parent_7 = $parent_7;
+        $user->parent_8 = $parent_8;
         $user->active_status = 'active';
         $user->save();
 
@@ -252,7 +267,8 @@ class UserController extends Controller
         $max_withdraw = $package->max_withdraw;
 
         $this->jackpot($parent_1, $user->id);
-        $this->checkStatusDirect((double)$package->package_cost*0.2, $parent_1, $user->id);
+        $this->checkStatusDirect((double)$package->package_cost*0.2, (int)$parent_1, (int)$user->id);
+//        return 'a';
 
         //add net wallet
         Wallet::create(['user_id' => $user->id, 'wallet_type_id' => 1, 'balance' => 0, 'max_balance' => $max_balance, 'max_withdraw' => (int)((double)$max_balance*$max_withdraw), 'level' => 1]); //direct

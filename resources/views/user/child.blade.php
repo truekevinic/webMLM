@@ -38,35 +38,17 @@
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-header"><p>Hierarchy</p></div>
+                    <div class="card-header"><p>Register Here!</p></div>
                     <div class="card-body">
-                        @foreach($childList as $c)
-                            <div class="child-member">
-                                <a class="card-body" href="/child/{{$c['user_id']}}">
-                                    {{'Parent '.$c['parent_1'].' Child '.$c['user_id'].' '.$c['user_name']}}
-                                </a>
-                            </div>
-                        @endforeach
+                        <select name="member_id" id="member_id">
+                            <option value="">Choose Member</option>
+                            @foreach($unregisterUser as $u)
+                                <option value="{{$u->id}}">{{$u->id.' '.$u->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 @include('management');
-                <form action='add-member' method="post">
-                    {{csrf_field()}}
-                    MemberID
-                    <select name="member_id" id="member-id">
-                        @foreach($unregisterUser as $u)
-                            <option value="{{$u->id}}">{{$u->id.' '.$u->name}}</option>
-                        @endforeach
-                    </select>
-                    <br>
-                    ParentID
-                    <select name="parent_1" id="parent_1">
-                        @foreach($childList as $c)
-                            <option value="{{$c['user_id']}}">{{$c['user_id'].' '.$c['user_name']}}</option>
-                        @endforeach
-                    </select>
-                    <button>Submit</button>
-                </form>
                 <div>
                     @foreach($errors->all() as $e)
                         <div>{{$e}}</div>
