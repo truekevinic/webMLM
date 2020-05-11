@@ -116,7 +116,7 @@
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-dark text-light"><i class="fas fa-users"></i></span>
+                            <span class="input-group-text bg-dark text-light"><i class="fas fa-key"></i></span>
                         </div>
                         <input id="pin" type="text" class="form-control @error('pin') is-invalid @enderror"
                                name="pin" required placeholder="Pin" value="{{old('pin')}}">
