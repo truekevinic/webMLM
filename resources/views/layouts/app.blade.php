@@ -45,7 +45,7 @@
                 </button>
             </div>
         </div>
-        <nav id="sidebar" class="">
+        <nav id="sidebar" class="active">
             <div class="p-4 pt-5 ">
                 <h1><a href="index.html" class="logo">LOGO</a></h1>
                 <ul class="list-unstyled components mb-5">
