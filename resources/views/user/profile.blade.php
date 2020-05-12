@@ -6,21 +6,21 @@
     <div class="row  ">
         
      
-        <div class=" col-1 offset-3  text-center  ">
+        <div class=" col-2 offset-2  text-center  ">
             
             @if($user->profile_image != 'none')
-            <img src="{{asset('images/user.jpg')}}" class="rounded-circle " style="width:75px " alt="">
+            <img src="{{asset('images/user.jpg')}}" class="rounded-circle " style="width:100% " alt="">
             
             @else
             <img src="{{asset("storage/images/$user->profile_image")}}" class="rounded-circle" style="width:75px "alt="">
             @endif
             
         </div>
-        <h4 class="col-4 my-auto ">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
+        <h4 class="col-6 my-auto ">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
 
     </div>
-    <div class="row mx-auto col-8">
-        <div class="col">
+    <div class="row mx-auto col-10">
+        <div class="col-lg-4 p-2">
             <div class="card">
                 <div class="card-header">
                     <p>Your Username</p>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-lg-4 p-2">
 
             <div class="card">
                 <div class="card-header">
@@ -42,7 +42,7 @@
             </div>
 
         </div>
-        <div class="col">
+        <div class="col-lg-4 p-2">
             <div class="card">
                 <div class="card-header">
                     <p> Your Refferal Code</p>

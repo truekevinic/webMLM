@@ -35,10 +35,18 @@
     cursor: pointer;
 }
 .register-right{
-    background: #f8f9fa;
+    background: rgb(0, 123, 255);
     border-top-left-radius: 10% 50%;
     border-bottom-left-radius: 10% 50%;
 }
+@media only screen and (max-width: 766px) {
+    .register-right{
+        background: rgb(0, 123, 255);
+        border-top-left-radius: 0%;
+        border-bottom-left-radius: 0%;
+    }
+}
+
 .register-left img{
     margin-top: 15%;
     margin-bottom: 5%;
@@ -282,7 +290,7 @@ footer{
 .container-decorate-2{
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
-.card:hover{
+.animate:hover{
     background-color: #0062cc;
     transition: ease;
     color: white;
