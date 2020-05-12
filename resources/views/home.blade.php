@@ -36,6 +36,8 @@
     </div>
     @endif
 
+    <div class="parallax"></div>
+
     <div class="container py-5 text-center">
         <div class="row-sm">
             <div class="">

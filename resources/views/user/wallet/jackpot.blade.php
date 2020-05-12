@@ -4,36 +4,30 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="my-5">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Jackpot Wallet</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="child-member">
-                            <div class="card-body">{{$bonus->balance}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="my-5">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Summaries</h3>
-                    </div>
-                    <br>
-                    @foreach($summaries as $s)
-                    <div class="card-body">
+            <h3>Jackpot Wallet<span class="badge badge-secondary">Balance: ${{$bonus->balance}}</span></h3>
+            <br>
+            <div class="container-card-deck container-decorate">
+                <h3 class="primary-color-text text-center">Summaries</h3>
+                <br>
+                @foreach($summaries as $s)
+                    <div class="container-card-deck-child">
                         {{$s->text}}
                         @if($s->status == "increment")
-                        <label style="color: #2a9055; font-weight: bold; font-size: 1.3em;">++</label>
+                            <label style="color: #2a9055; font-weight: bold; font-size: 1.3em;">++</label>
                         @else
-                        <label style="color: red; font-weight: bold; font-size: 1.3em;">--</label>
+                            <label style="color: red; font-weight: bold; font-size: 1.3em;">--</label>
                         @endif
                     </div>
-                    @endforeach
-                </div>
+                @endforeach
             </div>
+<<<<<<< HEAD
+            <br>
+            <form action="/wallet/withdraw/jackpot" method="post">
+                {{csrf_field()}}
+                <div class="child-member">
+                    <input type="number" min="0" name="wallet3" class="decorative-input">
+                    <input type="submit" value="Withdraw" class="primary-color-btn">
+=======
             <div class="my-5">
                 <div class="card">
                     <div class="card-header">
@@ -66,8 +60,12 @@
                     @foreach($errors->all() as $e)
                     <div>{{$e}}</div>
                     @endforeach
+>>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
                 </div>
-            </div>
+            </form>
+            @foreach($errors->all() as $e)
+            <div>$e</div>
+            @endforeach
         </div>
     </div>
 </div>

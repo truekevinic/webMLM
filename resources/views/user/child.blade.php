@@ -1,60 +1,70 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">User</div>
-                    <a class="card-body" href="/child/{{$user->id}}">
-                        {{$user->name}}
-                    </a>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-header"><p>Your Members</p></div>
-                    <div class="card-body">
-                        @foreach($children as $c)
-                            <div class="child-member">
-                                <a class="card-body" href="/child/{{$c->id}}">
-                                    {{$c->name}}
-                                </a>
-                            </div>
-                        @endforeach
+    <div class="container">
+        <div class="container-card-deck">
+            <h3 class="primary-color-text text-center">Hello, {{$user->name}}
+                <span class="badge badge-secondary">here are your members</span>
+            </h3>
+            <div class="row-centering">
+                @foreach($children as $c)
+                    <div class="centering container-card-deck-child">
+                        @if($c->profile_image != 'none')
+                            <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
+                        @else
+                            <img src="{{asset("storage/images/$c->profile_image")}}" class="rounded-circle"
+                                 style="width:75px " alt="">
+                        @endif
+                        <br>
+                        <b>Username:</b> {{$user->username}}
+                        <br>
+                        <b>Email: </b>{{$user->email}}
+                        <br>
+                        <b>Generated referral code: </b>{{$user->referral_code}}
                     </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-header"><p>Unregistered Member</p></div>
-                    <div class="card-body">
-                        @foreach($unregisterUser as $c)
-                            <div class="child-member">
-                                <a class="card-body" href="/child/{{$c->id}}">
-                                    {{$c->name}}
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-header"><p>Register Here!</p></div>
-                    <div class="card-body">
-                        <select name="member_id" id="member_id">
-                            <option value="">Choose Member</option>
-                            @foreach($unregisterUser as $u)
-                                <option value="{{$u->id}}">{{$u->id.' '.$u->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                @include('management');
-                <div>
-                    @foreach($errors->all() as $e)
-                        <div>{{$e}}</div>
+                @endforeach
+            </div>
+        </div>
+        <br>
+        <div class="container-card-deck">
+            <h3 class="primary-color-text text-center">Unregistered users</h3>
+                <div class="row-centering">
+                    @foreach($unregisterUser as $c)
+                        <div class="centering container-card-deck-child">
+                            @if($c->profile_image != 'none')
+                                <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
+                            @else
+                                <img src="{{asset("storage/images/$c->profile_image")}}" class="rounded-circle"
+                                     style="width:75px " alt="">
+                            @endif
+                            <br>
+                            <b>Username:</b> {{$user->username}}
+                            <br>
+                            <b>Email: </b>{{$user->email}}
+                            <br>
+                            <b>Generated referral code: </b>{{$user->referral_code}}
+                        </div>
                     @endforeach
                 </div>
             </div>
+        </div>
+        <br>
+        <div class="container-card-deck">
+            <h3 style="text-align:center;" class="primary-color-text">Register here!</h3>
+            <div class="row-centering">
+                <select name="member_id" id="member_id" class="select-design">
+                    <option value="">Choose Member</option>
+                    @foreach($unregisterUser as $u)
+                        <option value="{{$u->id}}">{{$u->id.' '.$u->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        @include('management');
+        <div>
+            @foreach($errors->all() as $e)
+                <div>{{$e}}</div>
+            @endforeach
         </div>
     </div>
     <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
