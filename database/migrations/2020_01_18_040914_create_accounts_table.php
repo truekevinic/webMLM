@@ -15,6 +15,7 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('max_bonus');
             $table->bigInteger('upgrade_cost');
             $table->timestamps();
         });
