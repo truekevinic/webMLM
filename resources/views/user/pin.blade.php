@@ -40,6 +40,7 @@
                     <div class="centering">
                         {{$pin_pending->links()}}
                     </div>
+
                 </div>
             </div>
             <div class="row">
