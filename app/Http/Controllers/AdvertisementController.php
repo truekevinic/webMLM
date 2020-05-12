@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Advertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdvertisementController extends Controller
 {
@@ -16,6 +17,13 @@ class AdvertisementController extends Controller
     }
 
     public function create(Request $request){
+
+        $validateData =Validator::make($request->all(), [
+            'link' => 'required',
+            'description' => 'required',
+            'image_source' => 'required|mimes:jpeg,jpg,png'
+        ]);
+
         $advertisement = new Advertisement();
 
         $advertisement->user_id = Auth::user()->id;
@@ -28,6 +36,9 @@ class AdvertisementController extends Controller
         $advertisement->image_source = $picture_name;
         $advertisement->save();
 
+        if($validateData->fails()){
+            return redirect()->back()->withErrors($validateData->errors());
+        }
         return redirect()->back()->withSuccess('Berhasil insert advertisement');
     }
 

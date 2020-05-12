@@ -172,19 +172,11 @@ footer{
     top: 3em;
 }
 
-/*tree design*/
-circle{
-    fill:#e36275;
-}
-path{
-    fill:none;
-    stroke:#85baf2;
-}
-
 /*select design*/
 
 .select-design{
     padding: 0.5em 1em 0.5em 1em;
+    border-radius: 5px;
 
 }
 
@@ -193,8 +185,21 @@ path{
     padding: 2em;
 }
 
-.primary-color{
+.primary-color-text{
     color: #008add;
+    font-weight: bold;
+}
+.primary-color-btn{
+    color: white;
+    background-color: #008add;
+    border-radius: 5px;
+    padding: 0.5em 1em 0.5em 1em;
+    border: none;
+}
+.primary-color-btn:hover{
+    color: white;
+    background-color: grey;
+    transition: .5s;
 }
 
 /*design-background*/
@@ -229,4 +234,49 @@ path{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.row-centering{
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.centering{
+    flex: 1 1 25%;
+    max-width: 100%;
+}
+
+.container-card-deck{
+    padding: 2em;
+}
+
+.container-card-deck-child{
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    margin: 1em;
+    padding: 1em;
+    background-color: white;
+}
+.container-card-deck-child:hover{
+    background-color: #ebebed;
+    transition: .5s;
+}
+
+.decorative-input{
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #878787;
+    padding: 0.5em;
+    margin: 0 1em 0 1em;
+}
+
+.container-decorate{
+    border: 1px solid #008add;
+    background-color: #f5fbfc;
+}
+
+.container-decorate-2{
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
 }

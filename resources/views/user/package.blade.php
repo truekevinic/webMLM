@@ -1,6 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< HEAD
+    <br><br><br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="container-card-deck container-decorate-2">
+                    <h3 style="text-align:center;" class="primary-color-text">Package</h3>
+                    <div class="mx-auto">
+                    <table class="tablePackage table" style="margin: 1.5em;"  >
+{{--                        @foreach($packages as $p)--}}
+{{--                            <tr>--}}
+{{--                                <td class="profile-member-list"> <li style="list-style: none;">{{$p->package_cost}}</li></td>--}}
+{{--                                <td class="profile-member-list"> <li style="list-style: none;">{{$p->max_balance}}</li></td>--}}
+{{--                                <td class="profile-member-list"> <li style="list-style: none;">{{$p->max_withdraw}}</li></td>--}}
+{{--                            </tr>--}}
+{{--                        @endforeach--}}
+                    </table>
+                </div>
+                    <div class="card-footer">
+                        <div>Add Package</div>
+                        <table class="table">
+                            <tr>
+                                <th > <li style="list-style: none;">Package Cost</li></th>
+                                <th > <li style="list-style: none;">Max Balance</li></th>
+                                <th > <li style="list-style: none;">Max Withdraw</li></th>
+                            </tr>
+                            <tr>
+                                <td><input type="number" name="addPackageCost" id="addPackageCost"></td>
+                                <td><input type="number" name="addMaxBalance" id="addMaxBalance"></td>
+                                <td><input type="number" name="addMaxWithdraw" id="addMaxWithdraw"></td>
+                            </tr>
+                        </table>
+                        <div>
+                            <button class="primary-color-btn" id="btnAdd" >Add</button>
+                        </div>
+                    </div>
+=======
 
 <div class="container py-5">
 
@@ -40,6 +76,7 @@
                 <div class="form-group col-lg-4">
                     <label style="list-style: none;">Max Balance</label>
                     <input type="number" class="form-control" name="addMaxBalance" id="addMaxBalance">
+>>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
                 </div>
                 <div class="form-group col-lg-4">
                     <label style="list-style: none;">Max Withdraw</label>
@@ -78,7 +115,11 @@
                     '<td > <li style="list-style: none;">'+packageList[i].package_cost+'</li></td>'+
                     '<td > <li style="list-style: none;">'+packageList[i].max_balance+'</li></td>'+
                     '<td > <li style="list-style: none;">'+packageList[i].max_withdraw+'</li></td>'+
+<<<<<<< HEAD
+                    '<td > <li style="list-style: none;"><button onclick="" class="btnDelete primary-color-btn" id="btnDeletePackage'+i+'">Remove</button></li></td>' +
+=======
                     '<td class="mx-auto" > <li style="list-style: none;"><button onclick="" class="btnDelete btn btn-secondary" id="btnDeletePackage'+i+'">Remove</button></li></td>' +
+>>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
                     '</tr>'
             }
             $('.tablePackage').html(packageDiv);
@@ -123,6 +164,11 @@
             });
         });
     });
+<<<<<<< HEAD
+    </script>
+    <br><br><br>
+=======
 </script>
+>>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
 
 @endsection
