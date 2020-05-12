@@ -33,14 +33,14 @@
             @endforeach
         </div>
     </div>
-<<<<<<< HEAD
+
     <div class="container-card-deck">
         <h3 style="text-align:center;" class="primary-color-text">List of users</h3>
         <div class="row-centering">
             @foreach($users as $user)
             @if($user->name != 'admin' && $user->role_status == 'approved')
             <div class="centering container-card-deck-child">
-=======
+
     <div class="my-5">
         <div class="card">
             <div class="card-header">
@@ -80,7 +80,6 @@
                 @foreach($users as $user)
                 @if($user->name != 'admin' && $user->role_status == 'approved')
 
->>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
                 <form action="/suspend-control/{{$user->id}}" method="post">
                     {{csrf_field()}}
                     @if($user->profile_image != 'none')

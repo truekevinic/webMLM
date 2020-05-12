@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <form action="/wallet/upgrade-package" method="post">
                         {{csrf_field()}}
-<<<<<<< HEAD
+
                         <select name="upgrade_package" id="upgrade_package">
                             @foreach($packages as $p)
                             @if($p->id > $user_package)
@@ -36,14 +36,14 @@
                             @endforeach
                         </select>
                         <button>Upgrade</button>
-=======
+
                         <div class="card-body">
                             <div class="child-member">
                                 <input type="number" min="0" name="wallet" max="{{$max_decrement}}">
                             </div>
                             <input type="submit" value="Withdraw">
                         </div>
->>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
+
                     </form>
                 </div>
             @endif

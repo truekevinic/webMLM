@@ -3,12 +3,12 @@
 @section('content')
 
     <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="">
-                <div class="card">
-                    <div class="card-header"><h3>Pending Pin</h3></div>
-                    <div class="card-body">
-                        <table border="1">
+        <div class=" justify-content-center">
+            <div class="row">
+                <div class="container-card-deck container-decorate col-10 offset-1 my-5 p-0">
+                    <div class=""><h3>Pending Pin</h3></div>
+                    <div class="">
+                        <table class="table">
                             <tr>
                                 <th>ID</th>
                                 <th>User ID</th>
@@ -37,14 +37,16 @@
                             @endforeach
                         </table>
                     </div>
-                    {{$pin->links()}}
+                    <div class="centering">
+                        {{$pin_pending->links()}}
+                    </div>
                 </div>
             </div>
-            <div class="">
-                <div class="card">
-                    <div class="card-header"><h3>Pin</h3></div>
-                    <div class="card-body">
-                        <table border="1">
+            <div class="row">
+                <div class="container-card-deck container-decorate col-10  offset-1 p-0">
+                    <div class=""><h3>Pin</h3></div>
+                    <div class="">
+                        <table class="table">
                             <tr>
                                 <th>ID</th>
                                 <th>User ID</th>
@@ -59,7 +61,10 @@
                             @endforeach
                         </table>
                     </div>
-                    {{$pin->links()}}
+                    <div class="centering">
+
+                        {{$pin->links()}}
+                    </div>
                 </div>
             </div>
         </div>

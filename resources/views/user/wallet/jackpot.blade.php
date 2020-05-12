@@ -20,14 +20,14 @@
                     </div>
                 @endforeach
             </div>
-<<<<<<< HEAD
+
             <br>
             <form action="/wallet/withdraw/jackpot" method="post">
                 {{csrf_field()}}
                 <div class="child-member">
                     <input type="number" min="0" name="wallet3" class="decorative-input">
                     <input type="submit" value="Withdraw" class="primary-color-btn">
-=======
+
             <div class="my-5">
                 <div class="card">
                     <div class="card-header">
@@ -60,7 +60,7 @@
                     @foreach($errors->all() as $e)
                     <div>{{$e}}</div>
                     @endforeach
->>>>>>> 7a47e409a8172284a8366e28cf883d1e4c644a2a
+
                 </div>
             </form>
             @foreach($errors->all() as $e)
