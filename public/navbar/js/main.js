@@ -17,10 +17,12 @@
 
 	if(sessionStorage.getItem('open') == 'yes'){
 		$('#sidebar').toggleClass('active');
+		$('#sidebtn').toggleClass('active');
 	}
 	$('#sidebarCollapse').on('click', function () {
 		
 	  $('#sidebar').toggleClass('active');
+	  $('#sidebtn').toggleClass('active');
 	  if(sessionStorage.getItem('open') == 'yes' ){
 		sessionStorage.setItem('open','not');
 	  }else if(sessionStorage.getItem('open') == 'not' ){

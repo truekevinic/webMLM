@@ -36,14 +36,17 @@
 
 <body>
     <div class="wrapper d-flex align-items-stretch">
-        <nav id="sidebar" class="active">
+        <div id="sidebtn" class="active" >
             <div class="custom-menu">
+
                 <button type="button" id="sidebarCollapse" class="btn btn-primary">
                     <i class="fa fa-bars"></i>
                     <span class="sr-only">Toggle Menu</span>
                 </button>
             </div>
-            <div class="p-4 pt-5">
+        </div>
+        <nav id="sidebar" class="">
+            <div class="p-4 pt-5 ">
                 <h1><a href="index.html" class="logo">LOGO</a></h1>
                 <ul class="list-unstyled components mb-5">
 
