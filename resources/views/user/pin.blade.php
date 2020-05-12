@@ -37,7 +37,7 @@
                             @endforeach
                         </table>
                     </div>
-                    {{$pin->links()}}
+                    {{$pin_pending->links()}}
                 </div>
             </div>
             <div class="">
