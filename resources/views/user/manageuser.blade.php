@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="container-card-deck">
+    <br><br>
+    <div class="container-card-deck container-decorate">
         <h3 style="text-align:center;" class="primary-color-text">List of registered users</h3>
         <div class="row-centering">
             @foreach($users as $user)
@@ -33,22 +34,13 @@
             @endforeach
         </div>
     </div>
-
-    <div class="container-card-deck">
-        <h3 style="text-align:center;" class="primary-color-text">List of users</h3>
+    <br><br>
+    <div class="container-card-deck container-decorate">
+        <h3 style="text-align:center;" class="primary-color-text">List of pending suspends users</h3>
         <div class="row-centering">
             @foreach($users as $user)
-            @if($user->name != 'admin' && $user->role_status == 'approved')
-            <div class="centering container-card-deck-child">
-
-    <div class="my-5">
-        <div class="card">
-            <div class="card-header">
-                <h3>List of pending suspend users</h3>
-            </div>
-            <div class="card-body">
-                @foreach($users as $user)
-                    @if($user->name != 'admin' && $user->suspend_status == 'pending')
+                @if($user->name != 'admin' && $user->suspend_status == 'pending')
+                    <div class="centering container-card-deck-child">
                         <form action="/unsuspend-user/{{$user->id}}" method="post">
                             {{csrf_field()}}
                             @if($user->profile_image != 'none')
@@ -66,20 +58,18 @@
                             <input type="submit" value="Unsuspend" />
                             <br>
                         </form>
-                    @endif
-                @endforeach
-            </div>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
-    <div class="my-5">
-        <div class="card">
-            <div class="card-header">
-                <h3>List of users</h3>
-            </div>
-            <div class="card-body">
-                @foreach($users as $user)
-                @if($user->name != 'admin' && $user->role_status == 'approved')
-
+    <br><br>
+    <div class="container-card-deck container-decorate">
+        <h3 style="text-align:center;" class="primary-color-text">List of users</h3>
+        <div class="row-centering">
+            @foreach($users as $user)
+            @if($user->name != 'admin' && $user->role_status == 'approved')
+            <div class="centering container-card-deck-child">
                 <form action="/suspend-control/{{$user->id}}" method="post">
                     {{csrf_field()}}
                     @if($user->profile_image != 'none')

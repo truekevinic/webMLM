@@ -46,7 +46,9 @@ class WalletController extends Controller
 
         $decrement = ($balance <= $max_withdraw ? $balance : $max_withdraw);
 
-        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package]))->with('typeStr', 'Direct')->with('balance', $decrement)->with('type', 1)->with('user', Auth::user());
+        $max_direct = Wallet::where('user_id','=',Auth::user()->id)->where('wallet_type_id','=',1)->first()->max_withdraw;
+
+        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package], ['max_direct', $max_direct]))->with('typeStr', 'Direct')->with('balance', $decrement)->with('type', 1)->with('user', Auth::user());
     }
 
     public function pairingView($id){

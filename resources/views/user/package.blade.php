@@ -1,17 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-
 <br><br><br>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="container-card-deck container-decorate-2">
+        <div class="container-card-deck container-decorate">
             <h3 style="text-align:center;" class="primary-color-text">Package</h3>
             <div class="row mx-auto col-10 ">
-
-
                 <table class="tablePackage table" style="margin: 1.5em;">
-                   
+
                 </table>
             </div>
             <div class="row col-10 mx-auto">
@@ -39,6 +36,7 @@
                     </div>
                 </form>
             </div>
+
 
             <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
             <script>
@@ -108,9 +106,5 @@
         });
     });
 
-            </script>
-            <br><br><br>
-
-
-
-            @endsection
+</script>
+@endsection

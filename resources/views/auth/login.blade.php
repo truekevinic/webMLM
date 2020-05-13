@@ -25,13 +25,13 @@
                                 @enderror
 
                         </div>
-                        
+
 
                         <div class="form-group row input-group mx-auto " >
                             <div class="input-group-prepend ">
                             <span class="input-group-text bg-primary text-light"><i class="fas fa-key"></i></span>
                             </div>
-                            
+
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
                                 <br>
                                 @error('password')
@@ -39,7 +39,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            
+
                         </div>
 
                         <div class="form-group row ">
@@ -56,18 +56,18 @@
 
                         <div class="form-group row mb-0">
                             <div class="align-middle mx-auto">
-                                <button type="submit" class="btn-primary btn-lg">
+                                <button type="submit" class="primary-color-btn">
                                     {{ __('Login') }}
                                 </button>
 
-                                
+
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer bg-primary text-light">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account?<a style=" color: rgb(0, 0, 0);" href="{{ route('register') }}">Sign Up</a>
+                        Don't have an account?&nbsp;<a style=" color: rgb(0, 0, 0);" href="{{ route('register') }}">Sign Up</a>
                     </div>
                     <div class="d-flex justify-content-center">
                         @if (Route::has('password.request'))

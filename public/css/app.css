@@ -254,7 +254,7 @@ footer{
 
 .centering{
     text-align: center;
-    padding: 0px auto;  
+    padding: 0px auto;
     flex: 1 1 25%;
     max-width: 100%;
 }
@@ -274,6 +274,10 @@ footer{
     transition: .5s;
 }
 
+.container-card-deck-child-2{
+
+}
+
 .decorative-input{
     border-radius: 5px;
     outline: none;
@@ -283,13 +287,11 @@ footer{
 }
 
 .container-decorate{
-    border: 1px solid #008add;
-    background-color: #f5fbfc;
-}
-
-.container-decorate-2{
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
+
+
+
 .animate:hover{
     background-color: #0062cc;
     transition: ease;
@@ -305,7 +307,7 @@ footer{
     position: relative;
     margin: auto;
   }
-  
+
   /* Caption text */
   .textslide {
     color: #f2f2f2;
@@ -316,7 +318,7 @@ footer{
     width: 100%;
     text-align: center;
   }
-  
+
   /* Number text (1/3 etc) */
   .numbertextslide {
     color: #f2f2f2;
@@ -325,7 +327,7 @@ footer{
     position: absolute;
     top: 0;
   }
-  
+
   /* The dots/bullets/indicators */
   .dotslide {
     height: 15px;
@@ -336,11 +338,11 @@ footer{
     display: inline-block;
     transition: background-color 0.6s ease;
   }
-  
+
   .activeslide {
     background-color: #717171;
   }
-  
+
   /* Fading animation */
   .fadeslide {
     -webkit-animation-name: fade;
@@ -348,18 +350,23 @@ footer{
     animation-name: fade;
     animation-duration: 1.5s;
   }
-  
+
   @-webkit-keyframes fadeslide {
-    from {opacity: .4} 
+    from {opacity: .4}
     to {opacity: 1}
   }
-  
+
   @keyframes fadeslide {
-    from {opacity: .4} 
+    from {opacity: .4}
     to {opacity: 1}
   }
-  
+
   /* On smaller screens, decrease text size */
   @media only screen and (max-width: 300px) {
     .text {font-size: 11px}
   }
+
+.margin-up-down-10{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
