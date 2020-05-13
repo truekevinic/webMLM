@@ -50,11 +50,14 @@
                                 <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px " alt="">
                             @endif
                             <br>
-                            {{$user->name}}
-                            {{$user->email}}
-                            {{$user->package_id}}
-                            {{$user->referral_code}}
+                            <b>Username:</b> {{$user->username}}
                             <br>
+                            <b>Email: </b>{{$user->email}}
+                            <br>
+                            <b>Package: </b>{{$user->package_id}}
+                            <br>
+                            <b>Generated referral code: </b>{{$user->referral_code}}
+                            <br><br>
                             <input type="submit" value="Unsuspend" />
                             <br>
                         </form>

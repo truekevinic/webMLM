@@ -7,6 +7,18 @@
 
                 <h3>{{$typeStr}} Wallet</h3>
 
+                @if(Auth::user()->id != 1)
+                    @if($type == 1)
+                        <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_direct}}</span></div>
+                    @endif
+                    @if($type == 2)
+                        <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_pairing}}</span></div>
+                    @endif
+                    @if($type == 3)
+                        <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_jackpot}}</span></div>
+                    @endif
+                @endif
+                <br>
                 @if($type == 2)
                     <span class="badge badge-secondary">Balance: ${{$balance + $total_group_sale}}</span>
                     <br><br>
@@ -59,15 +71,6 @@
                         <br><br>
                         What will you divide your withdrawal into?
                         <br><br>
-                        @if($type == 1)
-                            <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_direct}}</span></div>
-                        @endif
-                        @if($type == 2)
-                            <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_pairing}}</span></div>
-                        @endif
-                        @if($type == 3)
-                            <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_jackpot}}</span></div>
-                        @endif
                         <table>
                             <tr>
                                 <td>
