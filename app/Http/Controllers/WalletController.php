@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\ActivationPoint;
 use App\BankPoint;
 use App\McdPoint;
@@ -32,7 +33,12 @@ class WalletController extends Controller
     public function jackpotView(int $id){
         $bonus = Wallet::where('user_id', '=', $id)->where('wallet_type_id', '=', 3)->first();
         $summaries = Summary::where('user_id','=',$id)->where('bonus_type_id', '=', 3)->get();
-        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries]))->with('typeStr', 'Jackpot')->with('balance', $bonus->balance)->with('type', 3);
+
+        $levelJackpot = Wallet::where('user_id','=',Auth::user()->id)->where('wallet_type_id','=',3)->first()->level;
+
+        $max_jackpot = Account::find($levelJackpot)->max_bonus;
+
+        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['max_jackpot', $max_jackpot]))->with('typeStr', 'Jackpot')->with('balance', $bonus->balance)->with('type', 3);
     }
 
     public function directView($id){
@@ -45,7 +51,6 @@ class WalletController extends Controller
         $balance = $bonus->balance;
 
         $decrement = ($balance <= $max_withdraw ? $balance : $max_withdraw);
-
         $max_direct = Wallet::where('user_id','=',Auth::user()->id)->where('wallet_type_id','=',1)->first()->max_withdraw;
 
         return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['packages', $packages], ['user_package', $user_package], ['max_direct', $max_direct]))->with('typeStr', 'Direct')->with('balance', $decrement)->with('type', 1)->with('user', Auth::user());
@@ -57,7 +62,11 @@ class WalletController extends Controller
 
         $groupSale = $this->myGroupSales($id);
 
-        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries]))->with('group_sale_list', $groupSale['group_sale_list'])->with('total_group_sale', $groupSale['total_group_sale'])
+        $levelPairing = Wallet::where('user_id','=',Auth::user()->id)->where('wallet_type_id','=',2)->first()->level;
+
+        $max_pairing = (Pairing::find($levelPairing)->group_deposit)*3;
+
+        return view('user.wallet.withdraw', compact(['bonus', $bonus], ['summaries', $summaries], ['max_pairing', $max_pairing]))->with('group_sale_list', $groupSale['group_sale_list'])->with('total_group_sale', $groupSale['total_group_sale'])
             ->with('typeStr', 'Pairing')->with('balance', $bonus->balance)->with('type', 2);
     }
 

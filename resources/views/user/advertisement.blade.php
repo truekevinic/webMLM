@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <br><br><br>
 <div class="container">
 
     <div class="container-card-deck container-decorate">
@@ -30,9 +31,9 @@
         @endforeach
     </div>
     <br><br>
-    
+
         <h3 class="primary-color-text text-center">This is your advertisement</h3>
-        
+
             @foreach($advertisements as $advertisement)
             <div class="centering container-decorate px-3">
                 <form action="/advertisement/update/{{$advertisement->id}}" method="post" enctype="multipart/form-data">
@@ -65,13 +66,13 @@
                     </form>
                     <br><br>
                 </form>
-                
-                
+
+
             </div>
             <br><br>
             @endforeach
-            
-  
- 
+
+
+
 </div>
 @endsection

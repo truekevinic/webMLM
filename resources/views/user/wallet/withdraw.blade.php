@@ -59,7 +59,15 @@
                         <br><br>
                         What will you divide your withdrawal into?
                         <br><br>
-                        <div id="max_get">Max: 0</div>
+                        @if($type == 1)
+                            <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_direct}}</span></div>
+                        @endif
+                        @if($type == 2)
+                            <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_pairing}}</span></div>
+                        @endif
+                        @if($type == 3)
+                            <div id="max_get"><b>Max: </b><span class="badge badge-secondary">{{$max_jackpot}}</span></div>
+                        @endif
                         <table>
                             <tr>
                                 <td>
