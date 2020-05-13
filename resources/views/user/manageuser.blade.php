@@ -39,7 +39,7 @@
         <h3 style="text-align:center;" class="primary-color-text">List of pending suspends users</h3>
         <div class="row-centering">
             @foreach($users as $user)
-                @if($user->name != 'admin' && $user->suspend_status == 'pending')
+                @if($user->name != 'admin' && $user->suspend_status != 'unsuspend')
                     <div class="centering container-card-deck-child">
                         <form action="/unsuspend-user/{{$user->id}}" method="post">
                             {{csrf_field()}}
@@ -68,7 +68,7 @@
         <h3 style="text-align:center;" class="primary-color-text">List of users</h3>
         <div class="row-centering">
             @foreach($users as $user)
-            @if($user->name != 'admin' && $user->role_status == 'approved')
+            @if($user->name != 'admin' && $user->suspend_status == 'unsuspend' && $user->role_status = 'active')
             <div class="centering container-card-deck-child">
                 <form action="/suspend-control/{{$user->id}}" method="post">
                     {{csrf_field()}}
