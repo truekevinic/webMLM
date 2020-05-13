@@ -427,6 +427,30 @@ class UserController extends Controller
         return view('user.package',compact(['packages',$packages]));
     }
 
+    public function removePackage($id){
+        $packages = Package::where('id','=',$id)->first();
+        $packages->deleted = 1;
+        $packages->save();
+
+        return back();
+    }
+
+    public function addPackage(Request $request){
+        $request->validate([
+           'addPackageCost' => 'required',
+           'addMaxBalance' => 'required',
+           'addMaxWithdraw' => 'required'
+        ]);
+
+        $package = new Package();
+        $package->package_cost = $request->addPackageCost;
+        $package->max_balance = $request->addMaxBalance;
+        $package->max_withdraw = $request->addMaxWithdraw;
+        $package->save();
+
+        return back();
+    }
+
     public function direct($balance, $referral_id, $user_id){
         $referralWallet = Wallet::where('user_id', '=', $referral_id)->where('wallet_type_id', '=', 1)->first();
         $referralWallet->balance = $referralWallet->balance + (int)$balance;

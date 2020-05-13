@@ -63,8 +63,22 @@
                 @if(Auth::user()->suspend_status == 'unsuspend' || ($type != 1 && Auth::user()->suspend_status != 'unsuspend'))
                 <div class="container-card-deck container-decorate">
                     <h3 class="primary-color-text text-center">Withdraw</h3>
+
+                    @if(Auth::user()->id != 1 && $type == 1)
+                        <br>
+                        <div>
+                            <div>Amount that has been withdrawn / Maximum Withdraw</div>
+                            <div>
+                                <b>
+                                    {{'$'.($max_direct-$balance_left).' / $'.$max_direct}}
+                                </b>
+                            </div>
+                        </div>
+                    @endif
+
                     <form action="/wallet/withdraw/{{$type}}" method="post">
                         {{csrf_field()}}
+                        How much do you want to withdraw?
                         <input type="number" min="2" id="wallet" name="wallet" max="{{$balance}}" value="0" class="decorative-input">
                         <br><br>
                         <b>20%</b> from your withdrawal will be <b>donated</b> to the community

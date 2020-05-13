@@ -34,6 +34,9 @@ Route::get('/wallet/direct/{id}', 'WalletController@directView')->name('direct')
 Route::get('/wallet/jackpot/{id}', 'WalletController@jackpotView')->name('jackpot');
 Route::get('/wallet/pairing/{id}', 'WalletController@pairingView')->name('pairing');
 
+Route::post('/remove-package/{id}', 'UserController@removePackage');
+Route::post('/add-package', 'UserController@addPackage');
+
 //Route::get('/wallet/withdraw/{id}', 'UserController@withdrawView')->name('withdraw_view');
 //Route::post('/wallet/withdraw', 'UserController@withdraw')->name('withdraw');
 

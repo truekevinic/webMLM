@@ -70,11 +70,25 @@
             <p class="text-dark">${{$donation}}</p>
         </div>
     </div>
+    @if(Auth::user()->id != 1)
+    <br>
+    <div class="row-sm">
+        <div class="">
+            <p class="text-dark">Maksimum bonus yang bisa kamu dapatkan saat ini!</p>
+        </div>
+
+        <div class="">
+            <p class="text-dark"><b>Bonus Direct </b> : ${{$max_direct}}</p>
+            <p class="text-dark"><b>Bonus Pairing </b> : ${{$max_pairing}}</p>
+            <p class="text-dark"><b>Bonus Jackpot </b> : ${{$max_jackpot}}</p>
+        </div>
+    </div>
+    @endif
 </div>
 
 <div class="container-fluid py-5 backGNoImage">
     <div class="card-deck ">
-        @for ($i = 0; $i < 3; $i++) 
+        @for ($i = 0; $i < 3; $i++)
         <div class="card  animate">
             <div class="card-body text-center">
                 <i class="fas fa-user display-2"></i>
@@ -91,28 +105,28 @@
 <script>
     var slideIndex = 0;
         showSlides();
-        
+
         function showSlides() {
           var i;
           var slides = document.getElementsByClassName("mySlidesslide");
           var dots = document.getElementsByClassName("dotslide");
           for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";  
+            slides[i].style.display = "none";
           }
           slideIndex++;
-          if (slideIndex > slides.length) {slideIndex = 1}    
+          if (slideIndex > slides.length) {slideIndex = 1}
           for (i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(" activeslide", "");
           }
           for(i=0; i< 10000;i++);
-          slides[slideIndex-1].style.display = "block";  
+          slides[slideIndex-1].style.display = "block";
         //   if(slideIndex-2 < 0){
         //     slides[slideIndex-1].style.display = "block";
         //     slides[slideIndex-1].style.width = "block";
         //   }
           dots[slideIndex-1].className += " activeslide";
           setTimeout(showSlides, 4000); // Change image every 2 seconds
-          
+
         }
 </script>
 @endsection
