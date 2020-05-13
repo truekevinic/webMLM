@@ -4,47 +4,63 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">My point</div>
-                    <div class="card-body">
-                        <div>Registration Point: {{$reg}}</div>
-                        <div>Activation Point: {{$ac}}</div>
-                    </div>
-                </div>
+                <div class="container-card-deck container-decorate">
+                    <h3 class="primary-color-text text-center">My Point</h3>
+                <b>Registration Point:
+                    </b> {{$reg}}
                 <br>
-                <div class="card">
-                    <div class="card-header">Buy Pin</div>
-                    <div class="card-body">
-                        <form action="/buy-pin-post" method="post">
-                            {{csrf_field()}}
-                            How many pin you want to buy? (1 pin is worth ${{$pinPrice}})
-                            <div>
-                                <input type="number" min="1" name="pin-total" value="1">
-                            </div>
-                            <div>
+                <b>Activation Point: </b>{{$ac}} 
+                <br><br>
+                </div>
+                <br><br>
+                <div class="container-card-deck container-decorate">
+                    <h3 class="primary-color-text text-center">Buy Pin</h3>
+                    <form action="/buy-pin-post" method="post">
+                        {{csrf_field()}}
 
-                            </div>
-                            <div>
-                                How much registration point and activation point you want to use?
-                                <div>
-                                    Registration <input type="number" name="registration" id="registration" min="1" value="1">
-                                </div>
-                                <div>
-                                    Activation <input type="number" name="activation" id="activation" min="0" value="0">
-                                </div>
-                            </div>
-                            <input type="submit" value="Buy">
-                        </form>
-                    </div>
-                    @foreach($errors->all() as $e)
-                        <div>{{$e}}</div>
-                    @endforeach
+                        <br><br>
+                        <table>
+                        <tr>
+                            <td>
+
+                                How many pin you want to buy? 
+                                <br>(1 pin is worth ${{$pinPrice}})
+                            </td>
+                            <td>
+
+                            
+                                <input type="number" min="1" name="pin-total" value="1" class="decorative-input margin-up-down-10">
+                            </td>
+                                
+                            
+                            
+                        </tr>
+
+                            <tr>
+                                <td>
+                                    Registration
+                                </td>
+                                <td>
+                                    <input type="number" name="registration" id="registration" min="1" value="1" class="decorative-input margin-up-down-10">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Activation</td>
+                                <td><input type="number" name="activation" id="activation" min="0" value="0" class="decorative-input margin-up-down-10"></td>
+                            </tr>
+                        </table>
+                        <input type="submit" value="Buy" class="primary-color-btn">
+                    </form>
                 </div>
                 <br>
-                <div class="card">
-                    <div class="card-header">Pin List</div>
-                    <div class="card-body">
-                        <table border="1">
+                
+                <br>
+                <div class="container-card-deck container-decorate   p-4">
+                    <br><br>
+                    <h3 class="primary-color-text text-center">Pin List</h3>
+                    <br>
+                    <div class="">
+                        <table  class="table">
                             <tr>
                                 <th>ID</th>
                                 <th>User ID</th>
@@ -62,6 +78,7 @@
                         </table>
                     </div>
                 </div>
+               
             </div>
         </div>
     </div>

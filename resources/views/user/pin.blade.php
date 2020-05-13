@@ -6,7 +6,7 @@
         <div class=" justify-content-center">
             <div class="row">
                 <div class="container-card-deck container-decorate col-10 offset-1 my-5 p-0">
-                    <div class=""><h3>Pending Pin</h3></div>
+                    <h3 class="primary-color-text text-center">Pending Pin</h3>
                     <div class="">
                         <table class="table">
                             <tr>
@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="container-card-deck container-decorate col-10  offset-1 p-0">
-                    <div class=""><h3>Pin</h3></div>
+                    <h3 class="primary-color-text text-center">Pin</h3>
                     <div class="">
                         <table class="table">
                             <tr>

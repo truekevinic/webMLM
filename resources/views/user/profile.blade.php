@@ -3,93 +3,34 @@
 @section('content')
 
 <div class="container pb-3 pt-5">
-    <div class="row  ">
-        
-     
-        <div class=" col-2 offset-2  text-center  ">
-            
-            @if($user->profile_image != 'none')
-            <img src="{{asset('images/user.jpg')}}" class="rounded-circle " style="width:100% " alt="">
-            
-            @else
-            <img src="{{asset("storage/images/$user->profile_image")}}" class="rounded-circle" style="width:75px "alt="">
-            @endif
-            
-        </div>
-        <h4 class="col-6 my-auto ">Hello {{Auth::user()->username}} Welcome to your profile page</h4>
+    <div class="row-centering">
+            <div class="centering container-card-deck container-decorate">
+            <h3 class="primary-color-text text-center">Hello {{Auth::user()->username}} Welcome to your profile page</h3>
+                @if($user->profile_image != 'none')
+                    <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:100px " alt="">
+                @else
+                    <img src="{{asset("storage/images/$c->profile_image")}}" class="rounded-circle"
+                         style="width:100px " alt="">
+                @endif
+                <br>
+                <h4>
 
-    </div>
-    <div class="row mx-auto col-10">
-        <div class="col-lg-4 p-2">
-            <div class="card">
-                <div class="card-header">
-                    <p>Your Username</p>
-                </div>
-                <div class="card-body">
-                    <p>{{Auth::user()->username}}</p>
-                </div>
+                    <b>Username:</b> {{$user->username}}
+                </h4>
+                <h4>
+
+                    <br>
+                    <b>Email: </b>{{$user->email}}
+                </h4>
+                <h4>
+
+                    <br>
+                    <b>Generated referral code: </b>{{$user->referral_code}}
+                </h4>
+                <a type="submit" href="/update-profile" class="primary-color-btn">Update profile</a>
+          
             </div>
-        </div>
-        <div class="col-lg-4 p-2">
-
-            <div class="card">
-                <div class="card-header">
-                    <p> Your Email</p>
-                </div>
-                <div class="card-body">
-                    <p>{{Auth::user()->email}}</p>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-lg-4 p-2">
-            <div class="card">
-                <div class="card-header">
-                    <p> Your Refferal Code</p>
-                </div>
-                <div class="card-body">
-                    <p>{{$user->referral_code}}</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="row mt-4"><a href="/update-profile" class=" btn-primary btn-lg mx-auto " role="button"
-            aria-pressed="true">Update profile</a></div>
 </div>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10 pb-5">
-            <div class="card my-auto">
-                <div class="card-header">
-                    <h3>Members</h3>
-                </div>
-                <div class="card-body">
-
-                    <table style="margin: 1.5em;">
-
-                        @foreach($children as $c)
-                        <tr>
-                            <td>
-                                @if($c->profile_image != 'none')
-                                <img src="{{asset("storage/images/$c->profile_image")}}" class="rounded-circle"
-                                    style="width:75px " alt="">
-                                @else
-                                <img src="{{asset('images/user.jpg')}}" class="rounded-circle" style="width:75px "
-                                    alt="">
-                                @endif
-                            </td>
-                            <td class="profile-member-list">
-                                <li style="list-style: none;">{{$c->name }}</li>
-                            </td>
-                        </tr>
-
-                        @endforeach
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 

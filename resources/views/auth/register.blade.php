@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row my-5 overflow-hidden">
+<div class="row my-5">
     <div class="col-md-3 register-left my-auto">
 
         <h3>Welcome</h3>

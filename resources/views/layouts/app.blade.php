@@ -235,7 +235,7 @@
 
     <div id="content">
         <div id="app">
-            <main class="py-0">
+            <main class="py-0" style="overflow-x: hidden">
                 @yield('content')
             </main>
         </div>
