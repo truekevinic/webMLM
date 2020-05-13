@@ -3,39 +3,43 @@
 @section('content')
 <br><br><br>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="container-card-deck container-decorate">
-            <h3 style="text-align:center;" class="primary-color-text">Package</h3>
-            <div class="row mx-auto col-10 ">
-                <table class="tablePackage table" style="margin: 1.5em;">
 
-                </table>
+    <div class="container container-card-deck container-decorate">
+        <h3 style="text-align:center;" class="primary-color-text">Package</h3>
+        <div class="row mx-auto col-10 ">
+            <table class="tablePackage table" style="margin: 1.5em;">
+                
+            </table>
+        </div>
+        <div class="row col-10 mx-auto">
+            <div class="col-12">
+                <h3 style="text-align:center;" class="primary-color-text">Add Package</h3>
             </div>
-            <div class="row col-10 mx-auto">
-                <div class="col-12">
-                    <h3> Add Package</h3>
+            <form class="row">
+                
+                <div class="form-group col-lg-4">
+                    <label style="list-style: none;">Package Cost</label>
+                    <input type="number" class="form-control" name="addPackageCost" id="addPackageCost">
                 </div>
-                <form class="row">
+                <div class="form-group col-lg-4">
+                    <label style="list-style: none;">Max Balance</label>
+                    <input type="number" class="form-control" name="addMaxBalance" id="addMaxBalance">
+                    
+                </div>
+                <div class="form-group col-lg-4">
+                    <label style="list-style: none;">Max Withdraw</label>
+                    <input type="number" class="form-control" name="addMaxWithdraw" id="addMaxWithdraw">
+                </div>
+                <div class="form-group col-lg-4">
+                    
+                    <button class="primary-color-btn " id="btnAdd">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br><br><br>
+</div>
 
-                    <div class="form-group col-lg-4">
-                        <label style="list-style: none;">Package Cost</label>
-                        <input type="number" class="form-control" name="addPackageCost" id="addPackageCost">
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label style="list-style: none;">Max Balance</label>
-                        <input type="number" class="form-control" name="addMaxBalance" id="addMaxBalance">
-
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label style="list-style: none;">Max Withdraw</label>
-                        <input type="number" class="form-control" name="addMaxWithdraw" id="addMaxWithdraw">
-                    </div>
-                    <div class="form-group col-lg-4">
-
-                        <button class="primary-color-btn " id="btnAdd">Add</button>
-                    </div>
-                </form>
-            </div>
 
 
             <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
